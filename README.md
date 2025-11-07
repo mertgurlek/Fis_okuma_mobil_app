@@ -74,7 +74,7 @@ fis_okuma_mobil_app/
 
 ## 👥 Katkıda Bulunanlar
 
-Uyumsoft Geliştirme Ekibi
+Uyumsoft Ürün Yönetimi Ekibi
 
 ## 📞 İletişim
 
