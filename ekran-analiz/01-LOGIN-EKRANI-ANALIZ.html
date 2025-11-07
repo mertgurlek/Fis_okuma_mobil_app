@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Ekranı - Detaylı Analiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+        .section { background: white; padding: 25px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .component { border-left: 4px solid #667eea; padding-left: 15px; margin: 15px 0; }
+        h1 { margin: 0; }
+        h2 { color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        h3 { color: #764ba2; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th { background: #667eea; color: white; padding: 12px; text-align: left; }
+        td { border: 1px solid #ddd; padding: 10px; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin: 15px 0; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        
+        /* Gelişmiş analiz özellikleri */
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+        .back-button:hover { background: #5a67d8; }
+        .feature-item { display: flex; align-items: flex-start; margin-bottom: 15px; padding: 10px; border-radius: 6px; background: rgba(102, 126, 234, 0.05); }
+        .feature-checkbox { margin-right: 10px; margin-top: 2px; transform: scale(1.2); }
+        .feature-content { flex: 1; }
+        .feature-status { margin-left: 10px; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .comment-toggle { margin-left: 10px; padding: 4px 8px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8em; }
+        .feature-comment { margin-top: 8px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9em; background: white; width: 100%; resize: vertical; min-height: 60px; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="header">
+        <h1>🔐 LOGIN EKRANI - DETAYLI ANALİZ</h1>
+        <p>📸 Referans: Login ekranı.PNG</p>
+    </div>
+
+    <div class="section">
+        <h2>📋 Genel Bakış</h2>
+        <p><strong>Ekran Amacı:</strong> Kullanıcıların kimlik bilgileri ile sisteme giriş yapması</p>
+        <p><strong>Navigasyon Türü:</strong> Initial Route (App açılış ekranı)</p>
+        <p><strong>Auth Durumu:</strong> Public - Kimlik doğrulaması gerektirmez</p>
+    </div>
+
+    <div class="section">
+        <h2>🎨 Görsel Bileşenler</h2>
+
+        <div class="component">
+            <h3>1. Logo ve Başlık Alanı</h3>
+            <p><strong>Konum:</strong> Ekran üst merkez</p>
+            <p><strong>İçerik:</strong></p>
+            <ul>
+                <li>Logo: Gri-mavi gradyan daire içinde beyaz belge/fiş ikonu</li>
+                <li>Başlık: "Hoş Geldiniz" (beyaz, büyük font)</li>
+                <li>Alt başlık: "Devam etmek için giriş yapın" (beyaz, küçük font)</li>
+            </ul>
+            <p><strong>Backend:</strong> Logo static asset, metinler i18n sistemi ile</p>
+        </div>
+
+        <div class="component">
+            <h3>2. Kullanıcı Adı Input</h3>
+            <p><strong>Label:</strong> "Kullanıcı Adı"</p>
+            <p><strong>Input Tipi:</strong> Text/Email</p>
+            <p><strong>Validasyon:</strong></p>
+            <ul>
+                <li>Boş bırakılamaz</li>
+                <li>Minimum 3 karakter</li>
+                <li>E-posta veya username kabul eder</li>
+            </ul>
+            <p><strong>API Endpoint:</strong> <code>/api/auth/validate-username</code></p>
+        </div>
+
+        <div class="component">
+            <h3>3. Şifre Input</h3>
+            <p><strong>Label:</strong> "Şifre"</p>
+            <p><strong>Input Tipi:</strong> Password (masked - •••••)</p>
+            <p><strong>Güvenlik:</strong></p>
+            <ul>
+                <li>Minimum 6 karakter</li>
+                <li>bcrypt/Argon2 ile hash'lenerek saklanır</li>
+                <li>Rate limiting: 5 başarısız deneme = 15 dk bekleme</li>
+            </ul>
+            <div class="warning">
+                <strong>⚠️ Önemli:</strong> Şifreler asla plain text olarak database'de saklanmamalı!
+            </div>
+        </div>
+
+        <div class="component">
+            <h3>4. Giriş Yap Butonu</h3>
+            <p><strong>Metin:</strong> "Giriş Yap"</p>
+            <p><strong>Stil:</strong> Full-width, koyu mavi, yuvarlatılmış köşeler</p>
+            <p><strong>Durumlar:</strong></p>
+            <ul>
+                <li>Disabled (gri) - Form eksikse</li>
+                <li>Active (mavi) - Tıklanabilir</li>
+                <li>Loading (spinner) - API çağrısı sırasında</li>
+            </ul>
+        </div>
+
+        <div class="component">
+            <h3>5. Demo Modunda Deneyin</h3>
+            <p><strong>Konum:</strong> Giriş butonunun altında (veya ayracı ile)</p>
+            <p><strong>Fonksiyon:</strong> Önceden tanımlı demo kullanıcı ile otomatik giriş</p>
+            <p><strong>Backend:</strong></p>
+            <ul>
+                <li>Demo kullanıcı database'de <code>is_demo = true</code> flag'ı ile işaretli</li>
+                <li>Okuma yetkisi var, yazma/silme kısıtlı</li>
+                <li>Session süresi: 1 saat</li>
+                <li>Data günlük sıfırlanır</li>
+            </ul>
+        </div>
+
+        <div class="component">
+            <h3>6. Hesap Oluştur Linki</h3>
+            <p><strong>Metin:</strong> "Hesabınız yok mu?" + "Hesap Oluştur" (outlined button)</p>
+            <p><strong>Navigasyon:</strong> /signup ekranına yönlendirir</p>
+            <p><strong>Animasyon:</strong> Slide-in from right</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>⚙️ Backend API Entegrasyonu</h2>
+
+        <h3>Login API</h3>
+        <table>
+            <tr>
+                <th>Özellik</th>
+                <th>Değer</th>
+            </tr>
+            <tr>
+                <td>Endpoint</td>
+                <td><code>POST /api/auth/login</code></td>
+            </tr>
+            <tr>
+                <td>Request Body</td>
+                <td>
+                    <pre>{
+  "username": "string",
+  "password": "string",
+  "device_info": {
+    "device_id": "uuid",
+    "platform": "ios/android"
+  }
+}</pre>
+                </td>
+            </tr>
+            <tr>
+                <td>Success (200)</td>
+                <td>
+                    <pre>{
+  "success": true,
+  "token": "jwt_token",
+  "refresh_token": "refresh_token",
+  "user": {
+    "id": "uuid",
+    "name": "string",
+    "email": "string",
+    "role": "user/admin/company_admin"
+  }
+}</pre>
+                </td>
+            </tr>
+            <tr>
+                <td>Error (401)</td>
+                <td>
+                    <pre>{
+  "success": false,
+  "error": "INVALID_CREDENTIALS",
+  "message": "Kullanıcı adı veya şifre hatalı"
+}</pre>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🔄 Akışlar</h2>
+
+        <h3>Başarılı Giriş Akışı:</h3>
+        <ol>
+            <li>Kullanıcı username ve password girer</li>
+            <li>"Giriş Yap" butonuna tıklar</li>
+            <li>Client-side validasyon kontrol edilir</li>
+            <li><code>POST /api/auth/login</code> çağrılır</li>
+            <li>Backend kimlik doğrulaması yapar</li>
+            <li>JWT token döner</li>
+            <li>Token SecureStore'a kaydedilir</li>
+            <li>User bilgileri global state'e kaydedilir</li>
+            <li>Dashboard ekranına yönlendirme</li>
+            <li>Welcome toast mesajı</li>
+        </ol>
+
+        <h3>Başarısız Giriş Akışı:</h3>
+        <ol>
+            <li>Hatalı bilgiler girilir</li>
+            <li>API 401 hatası döner</li>
+            <li>Hata mesajı gösterilir</li>
+            <li>Input alanları kırmızı border ile işaretlenir</li>
+            <li>Başarısız deneme sayısı artırılır</li>
+            <li>5. denemeden sonra CAPTCHA gösterilir</li>
+            <li>10. denemeden sonra hesap kilitlenir</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>🚨 Hata Yönetimi</h2>
+        <table>
+            <tr>
+                <th>HTTP Kod</th>
+                <th>Hata</th>
+                <th>Kullanıcı Mesajı</th>
+                <th>Aksiyon</th>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>BAD_REQUEST</td>
+                <td>Lütfen tüm alanları doldurun</td>
+                <td>Input highlight</td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>INVALID_CREDENTIALS</td>
+                <td>Kullanıcı adı veya şifre hatalı</td>
+                <td>Şifre temizle</td>
+            </tr>
+            <tr>
+                <td>403</td>
+                <td>ACCOUNT_LOCKED</td>
+                <td>Hesabınız kilitlendi</td>
+                <td>Destek linki göster</td>
+            </tr>
+            <tr>
+                <td>429</td>
+                <td>TOO_MANY_REQUESTS</td>
+                <td>Çok fazla deneme. 15 dk sonra deneyin</td>
+                <td>Countdown timer</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>SERVER_ERROR</td>
+                <td>Bir hata oluştu</td>
+                <td>Retry butonu</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🗄️ Database Tabloları</h2>
+
+        <h3>users Tablosu:</h3>
+        <pre>CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    phone VARCHAR(20),
+    role VARCHAR(20) DEFAULT 'user',
+    is_demo BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_locked BOOLEAN DEFAULT FALSE,
+    locked_until TIMESTAMP,
+    failed_login_attempts INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW(),
+    last_login TIMESTAMP
+);</pre>
+
+        <h3>user_sessions Tablosu:</h3>
+        <pre>CREATE TABLE user_sessions (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    token_hash VARCHAR(255) NOT NULL,
+    refresh_token_hash VARCHAR(255),
+    device_id VARCHAR(255),
+    device_info JSONB,
+    ip_address INET,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);</pre>
+
+        <h3>login_attempts Tablosu (Audit Log):</h3>
+        <pre>CREATE TABLE login_attempts (
+    id UUID PRIMARY KEY,
+    username VARCHAR(255),
+    ip_address INET,
+    success BOOLEAN,
+    failure_reason VARCHAR(100),
+    attempted_at TIMESTAMP DEFAULT NOW()
+);</pre>
+    </div>
+
+    <div class="info">
+        <strong>ℹ️ Not:</strong> Bu ekran analizi, full-stack developer'ın backend implementasyonu için tüm gerekli detayları içermektedir.
+    </div>
+
+    <script>
+        function toggleComment(featureId) {
+            const commentDiv = document.getElementById(featureId + '-comment');
+            if (commentDiv.style.display === 'none') {
+                commentDiv.style.display = 'block';
+            } else {
+                commentDiv.style.display = 'none';
+            }
+        }
+        
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                localStorage.setItem('login-analiz-' + (e.target.id || Date.now()), e.target.checked);
+            }
+        });
+        
+        window.addEventListener('load', function() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox, index) {
+                const saved = localStorage.getItem('login-analiz-' + (checkbox.id || index));
+                if (saved !== null) checkbox.checked = saved === 'true';
+            });
+        });
+    </script>
+</body>
+</html>

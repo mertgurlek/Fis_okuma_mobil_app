@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesabım Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 450px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; border-right: 3px solid #e9ecef; overflow-y: auto; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); margin-bottom: 25px; }
+        .screenshot-label { margin-bottom: 20px; font-size: 0.9em; color: #6c757d; text-align: center; padding: 10px; background: white; border-radius: 8px; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>👤 HESABIM EKRANI</h1>
+            <p>Kullanıcı Profili ve Ayarlar</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <div class="screenshot-label"><strong>Üst Bölüm</strong><br>Profil ve kontör bilgileri</div>
+                <img src="../screenshots/hesabım ekranı 1.PNG" alt="Hesabım 1">
+                <div class="screenshot-label"><strong>Alt Bölüm</strong><br>Ayarlar ve çıkış</div>
+                <img src="../screenshots/hesabım ekranı 2.PNG" alt="Hesabım 2">
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Hesabım ekranı, kullanıcının profil bilgilerini, kontör durumunu, kullanım istatistiklerini 
+                        görüntülediği ve hesap ayarlarını yaptığı ekrandır. Abonelik bilgileri, kontör satın alma 
+                        ve uygulama ayarları bu ekrandan yönetilir.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">👤 Kullanıcı Profil Kartı</h2>
+                    <div class="component">
+                        <div class="component-title">Profil Bilgileri</div>
+                        <ul>
+                            <li><strong>Avatar:</strong> Sol tarafta yuvarlak kullanıcı ikonu</li>
+                            <li><strong>Kullanıcı Adı:</strong> "Demo Müşavir" (büyük, beyaz font)</li>
+                            <li><strong>E-posta:</strong> "demo@fisokuma.com" (küçük, yarı saydam)</li>
+                            <li><strong>Hesap Tipi Badge:</strong> Sağ üstte "🏆 Demo" etiketi</li>
+                            <li><strong>Arka Plan:</strong> Mavi gradyan</li>
+                            <li><strong>Tıklama:</strong> Profil düzenleme sayfasına gider</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💰 Kontör Kartı</h2>
+                    <div class="component">
+                        <div class="component-title">Kontör Bilgileri</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Sarı cüzdan ikonu</li>
+                            <li><strong>Başlık:</strong> "Kontör"</li>
+                            <li><strong>Kalan:</strong> 25 (büyük, yeşil sayı)</li>
+                            <li><strong>Kullanılan:</strong> 25 (gri metin)</li>
+                            <li><strong>Progress Bar:</strong> Mavi çubuk, kullanım oranını gösterir</li>
+                            <li><strong>Görünüm:</strong> Beyaz kart, sol tarafta</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📱 Abonelik Kartı</h2>
+                    <div class="component">
+                        <div class="component-title">Abonelik Durumu</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Kırmızı abonelik ikonu</li>
+                            <li><strong>Başlık:</strong> "Abonelik"</li>
+                            <li><strong>Plan:</strong> "Ücretsiz" (büyük font)</li>
+                            <li><strong>Durum:</strong> "Deneme" (yeşil etiket)</li>
+                            <li><strong>Alternatifler:</strong> "Premium", "Pro", "Standart"</li>
+                            <li><strong>Görünüm:</strong> Beyaz kart, sağ tarafta</li>
+                            <li><strong>Tıklama:</strong> Abonelik paketleri sayfasına gider</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 İstatistikler Kartı</h2>
+                    <div class="component">
+                        <div class="component-title">Kullanım İstatistikleri</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Grafik ikonu</li>
+                            <li><strong>Başlık:</strong> "İstatistikler"</li>
+                            <li><strong>4 Farklı Metrik:</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📄 Toplam Fiş</div>
+                        <ul>
+                            <li><strong>Değer:</strong> 25 (mavi renk, büyük)</li>
+                            <li><strong>Açıklama:</strong> "Toplam Fiş"</li>
+                            <li><strong>Anlamı:</strong> Kullanıcının eklediği toplam fiş sayısı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📅 Bu Ay</div>
+                        <ul>
+                            <li><strong>Değer:</strong> 15 (yeşil renk)</li>
+                            <li><strong>Açıklama:</strong> "Bu Ay"</li>
+                            <li><strong>Anlamı:</strong> Bu ay eklenen fiş sayısı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📆 Bu Hafta</div>
+                        <ul>
+                            <li><strong>Değer:</strong> 8 (turuncu renk)</li>
+                            <li><strong>Açıklama:</strong> "Bu Hafta"</li>
+                            <li><strong>Anlamı:</strong> Bu hafta eklenen fiş sayısı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📈 Günlük Ortalama</div>
+                        <ul>
+                            <li><strong>Değer:</strong> 1.5 (mor renk)</li>
+                            <li><strong>Açıklama:</strong> "Günlük Ort."</li>
+                            <li><strong>Anlamı:</strong> Günlük ortalama fiş ekleme sayısı</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💳 Kontör Al Butonu</h2>
+                    <div class="component">
+                        <div class="component-title">Satın Alma Butonu</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Sarı cüzdan ikonu</li>
+                            <li><strong>Metin:</strong> "Kontör Al"</li>
+                            <li><strong>Görünüm:</strong> Mavi arka plan, full-width buton</li>
+                            <li><strong>Fonksiyon:</strong> Kontör satın alma sayfasına yönlendirir</li>
+                            <li><strong>Konum:</strong> İstatistikler kartının altında</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">⚙️ Ayarlar Bölümü</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🔧 Ayarlar Başlığı</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Dişli çark ikonu</li>
+                            <li><strong>Metin:</strong> "Ayarlar"</li>
+                            <li><strong>Görünüm:</strong> Başlık satırı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔄 Otomatik Kontör Yenileme</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "Otomatik Kontör Yenileme"</li>
+                            <li><strong>Açıklama:</strong> "10 altında 50 kontör ekle"</li>
+                            <li><strong>Kontrol:</strong> Toggle switch (açık/kapalı)</li>
+                            <li><strong>Varsayılan:</strong> Kapalı</li>
+                            <li><strong>Fonksiyon:</strong> Kontör 10'un altına düşünce otomatik 50 kontör alır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔔 Düşük Kontör Bildirimi</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "Düşük Kontör Bildirimi"</li>
+                            <li><strong>Kontrol:</strong> Toggle switch</li>
+                            <li><strong>Varsayılan:</strong> Açık</li>
+                            <li><strong>Fonksiyon:</strong> Kontör azaldığında bildirim gönderir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📊 Haftalık Rapor</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "Haftalık Rapor"</li>
+                            <li><strong>Kontrol:</strong> Toggle switch</li>
+                            <li><strong>Varsayılan:</strong> Kapalı</li>
+                            <li><strong>Fonksiyon:</strong> Haftalık kullanım raporu e-posta ile gönderilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🚪 Çıkış Yap</h2>
+                    <div class="component">
+                        <div class="component-title">Logout Butonu</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "Çıkış Yap"</li>
+                            <li><strong>Görünüm:</strong> Kırmızı/pembe arka plan, full-width</li>
+                            <li><strong>Konum:</strong> Ekranın en altında</li>
+                            <li><strong>Fonksiyon:</strong> Kullanıcıyı sistemden çıkarır</li>
+                            <li><strong>Onay:</strong> "Çıkış yapmak istediğinizden emin misiniz?" dialogu</li>
+                            <li><strong>Sonuç:</strong> Login ekranına yönlendirilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">ℹ️ Versiyon Bilgisi</h2>
+                    <div class="component">
+                        <div class="component-title">Uygulama Versiyonu</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "v1.0.0"</li>
+                            <li><strong>Konum:</strong> Çıkış Yap butonunun altında, merkezi</li>
+                            <li><strong>Renk:</strong> Açık gri, küçük font</li>
+                            <li><strong>Tıklama:</strong> 5 kez tıklandığında geliştirici modu açılır</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Profil Düzenleme</div>
+                        <ul>
+                            <li>Profil kartına tıklanır</li>
+                            <li>Profil düzenleme sayfası açılır</li>
+                            <li>Ad, soyad, e-posta, telefon düzenlenebilir</li>
+                            <li>Şifre değiştirme seçeneği sunulur</li>
+                            <li>Profil fotoğrafı yüklenebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kontör Satın Alma</div>
+                        <ul>
+                            <li>"Kontör Al" butonuna tıklanır</li>
+                            <li>Kontör paketleri sayfası açılır</li>
+                            <li>Paket seçenekleri: 50, 100, 250, 500 kontör</li>
+                            <li>Ödeme yöntemleri: Kredi kartı, havale</li>
+                            <li>Satın alma sonrası kontör bakiyesi güncellenir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Abonelik Yükseltme</div>
+                        <ul>
+                            <li>Abonelik kartına tıklanır</li>
+                            <li>Paket karşılaştırma sayfası açılır</li>
+                            <li>Ücretsiz, Standart, Premium paketler</li>
+                            <li>Her paketin özellikleri listelenir</li>
+                            <li>Paket seçimi ve ödeme işlemi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Ayar Değiştirme</div>
+                        <ul>
+                            <li>Toggle switch'lere tıklanır</li>
+                            <li>Ayar açık/kapalı duruma geçer</li>
+                            <li>Değişiklikler anında kaydedilir</li>
+                            <li>Bildirim ayarları cihaz izinlerini kontrol eder</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Çıkış İşlemi</div>
+                        <ul>
+                            <li>"Çıkış Yap" butonuna tıklanır</li>
+                            <li>Onay dialogu gösterilir</li>
+                            <li>Kullanıcı onaylarsa:
+                                <ul>
+                                    <li>Session token temizlenir</li>
+                                    <li>Local storage temizlenir</li>
+                                    <li>Global state sıfırlanır</li>
+                                    <li>Login ekranına yönlendirilir</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Gerçek Zamanlı İstatistikler</div>
+                        <ul>
+                            <li>Yeni fiş eklendiğinde istatistikler otomatik güncellenir</li>
+                            <li>Progress bar animasyonlu değişir</li>
+                            <li>Sayılar artış animasyonu ile gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kontör Uyarı Sistemi</div>
+                        <ul>
+                            <li>Kontör 10'un altına düşünce kırmızı uyarı</li>
+                            <li>Kontör 0 olunca işlemler kısıtlanır</li>
+                            <li>Push notification ile uyarı gönderilir</li>
+                            <li>E-posta ile bildirim (ayar açıksa)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Hesap Tipleri</div>
+                        <ul>
+                            <li><strong>Demo:</strong> Test hesabı, sınırlı özellikler</li>
+                            <li><strong>Ücretsiz:</strong> Temel özellikler, 50 fiş/ay</li>
+                            <li><strong>Standart:</strong> Gelişmiş özellikler, 500 fiş/ay</li>
+                            <li><strong>Premium:</strong> Tüm özellikler, sınırsız fiş</li>
+                            <li><strong>Müşavir:</strong> Çoklu firma, özel raporlar</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Veri İndirme</div>
+                        <ul>
+                            <li>Kullanıcı tüm verilerini indirebilir (GDPR)</li>
+                            <li>CSV, PDF, Excel formatlarında</li>
+                            <li>Fişler, raporlar, hesap bilgileri</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Hesap Silme</div>
+                        <ul>
+                            <li>Ayarlar içinde "Hesabı Sil" seçeneği</li>
+                            <li>Çoklu onay adımları</li>
+                            <li>30 gün içinde iptal edilebilir</li>
+                            <li>Kalıcı silme sonrası veriler geri alınamaz</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>💡 Kullanım Senaryosu:</strong> Kullanıcı hesap bilgilerini kontrol eder, kontör durumunu 
+                    görür ve gerekirse satın alma yapar. İstatistikleri inceleyerek kullanım alışkanlıklarını takip 
+                    eder. Ayarları kişiselleştirir ve gerektiğinde çıkış yapar.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function toggleComment(featureId) { const commentDiv = document.getElementById(featureId + '-comment'); commentDiv.style.display = commentDiv.style.display === 'none' ? 'block' : 'none'; }</script>
+</body>
+</html>

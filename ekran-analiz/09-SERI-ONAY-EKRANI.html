@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seri Onay Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 400px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; display: flex; flex-direction: column; align-items: center; border-right: 3px solid #e9ecef; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        .screenshot-label { margin-top: 15px; font-size: 0.9em; color: #6c757d; text-align: center; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        
+        /* Gelişmiş özellikler */
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+        .back-button:hover { background: #5a67d8; }
+        .feature-item { display: flex; align-items: flex-start; margin-bottom: 15px; padding: 10px; border-radius: 6px; background: rgba(102, 126, 234, 0.05); }
+        .feature-checkbox { margin-right: 10px; margin-top: 2px; transform: scale(1.2); }
+        .feature-content { flex: 1; }
+        .feature-status { margin-left: 10px; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .comment-toggle { margin-left: 10px; padding: 4px 8px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8em; }
+        .feature-comment { margin-top: 8px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9em; background: white; width: 100%; resize: vertical; min-height: 60px; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>✅ SERİ ONAY EKRANI</h1>
+            <p>Toplu Fiş Onaylama</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <img src="../screenshots/Seri Onay Ekranı 1.PNG" alt="Seri Onay - Ana Görünüm">
+                <div class="screenshot-label">
+                    <strong>Ekran:</strong> Seri Onay - Ana Görünüm<br>
+                    <strong>Dosya:</strong> app/serial-approval.tsx
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <img src="../screenshots/Seri Onay Ekranı 2.PNG" alt="Seri Onay - KDV Ekleme">
+                    <div class="screenshot-label">
+                        <strong>Ekran:</strong> Seri Onay - KDV Ekleme<br>
+                        <strong>Özellik:</strong> + Butonu ile Yeni KDV
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Seri Onay ekranı, kullanıcının beklemedeki fişleri tek tek değil, hızlı bir şekilde 
+                        swipe (kaydırma) yöntemi ile onaylamasını sağlar. Her fiş bir kart halinde gösterilir 
+                        ve kullanıcı sola/sağa kaydırarak onaylar veya reddeder.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 İlerleme Göstergesi</h2>
+                    <div class="component">
+                        <div class="component-title">Üst Durum Çubuğu</div>
+                        <ul>
+                            <li><strong>İlerleme:</strong> "1 / 15 Fiş" - Kaç fişten kaçındasınız</li>
+                            <li><strong>Dropdown:</strong> Yanındaki ok ile filtre seçimi</li>
+                            <li><strong>Onaylanan:</strong> 0 (yeşil sayı) - Onaylanan fiş sayısı</li>
+                            <li><strong>Atlanan:</strong> 0 (turuncu sayı) - Atlanan fiş sayısı</li>
+                            <li><strong>Kalan:</strong> 14 (gri sayı) - Henüz işlem yapılmamış</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📄 Fiş Kartı</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Temel Bilgiler</div>
+                        <ul>
+                            <li><strong>Tarih:</strong> "2024-11-06" - Fiş tarihi</li>
+                            <li><strong>Fiş No:</strong> "FIS-2024-0500" - Benzersiz fiş numarası</li>
+                            <li><strong>VKN:</strong> "1234567890" - Firma vergi kimlik no</li>
+                            <li><strong>Ünvan:</strong> "ABC Market" - Firma adı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">KDV Satırları & Ekleme Özelliği</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "KDV Satırları" + Artı (+) butonu</li>
+                            <li><strong>+ Butonu:</strong> Yeni KDV satırı ekleme (Görsel 2'de detay)</li>
+                            <li><strong>KDV Oranları:</strong> %1, %8, %18, %20 seçenekleri</li>
+                            <li><strong>Dinamik Ekleme:</strong> İstediği kadar KDV satırı eklenebilir</li>
+                            <li><strong>Mevcut Satır Örneği:</strong>
+                                <ul>
+                                    <li>KDV %: 20 - Vergi oranı</li>
+                                    <li>Matrah: 500 - KDV hariç tutar</li>
+                                    <li>KDV Tutarı: 100.00 - Hesaplanan KDV</li>
+                                    <li>Silme: Çöp kutusu ikonu (kırmızı)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Otomatik Hesaplama:</strong> Matrah girilince KDV tutarı otomatik hesaplanır</li>
+                            <li><strong>Doğrulama:</strong> KDV oranı ve matrah zorunlu alanlar</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Toplam Bilgiler</div>
+                        <ul>
+                            <li><strong>Toplam KDV:</strong> 100 TL</li>
+                            <li><strong>Toplam Tutar:</strong> 600 TL</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Fiş Görseli</div>
+                        <ul>
+                            <li><strong>Placeholder:</strong> "fiş görseli" - Belge ikonu</li>
+                            <li><strong>Link:</strong> "Görsel yakında eklenecek" (mavi)</li>
+                            <li><strong>Fonksiyon:</strong> Fiş fotoğrafını görüntüleme/ekleme</li>
+                            <li><strong>AI Güven Skoru:</strong> "%95" - OCR güvenilirlik oranı</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💡 İpucu Bölümü</h2>
+                    <div class="component">
+                        <div class="component-title">Kullanım Talimatları</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Ampul ikonu</li>
+                            <li><strong>Başlık:</strong> "İpucu"</li>
+                            <li><strong>Mesaj:</strong> "Demo: Fiş detaylarını görüntülemek için kaydırın ve gerekirse düzenleyin."</li>
+                            <li><strong>Görünüm:</strong> Sarı/turuncu arka plan, bilgilendirme kutusu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔘 Alt Aksiyon Butonları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Çık Butonu</div>
+                        <ul>
+                            <li><strong>İkon:</strong> X işareti</li>
+                            <li><strong>Metin:</strong> "Çık"</li>
+                            <li><strong>Renk:</strong> Gri, ghost button</li>
+                            <li><strong>Fonksiyon:</strong> Seri onay işlemini sonlandırır, listeye döner</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Detay Butonu</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "Detay"</li>
+                            <li><strong>Renk:</strong> Beyaz, outlined</li>
+                            <li><strong>Fonksiyon:</strong> Fişin tam detay sayfasını açar</li>
+                            <li><strong>Kullanım:</strong> Daha fazla bilgi gerekiyorsa</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Atla Butonu</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "Atla"</li>
+                            <li><strong>Renk:</strong> Beyaz, outlined</li>
+                            <li><strong>Fonksiyon:</strong> Bu fişi atlar, bir sonrakine geçer</li>
+                            <li><strong>Durum:</strong> Atlanan fişler sayacı artar</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Onayla Butonu</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "Onayla"</li>
+                            <li><strong>Renk:</strong> Mavi, solid button</li>
+                            <li><strong>Fonksiyon:</strong> Fişi onaylar, bir sonrakine geçer</li>
+                            <li><strong>Klavye Kısayolu:</strong> Enter veya Space tuşu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Swipe (Kaydırma) Etkileşimleri</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Sağa Kaydırma → Onayla</div>
+                        <ul>
+                            <li>Kullanıcı kartı sağa kaydırır</li>
+                            <li>Kart yeşil arka plan alır</li>
+                            <li>"✓ Onayla" metni görünür</li>
+                            <li>Bırakıldığında fiş onaylanır</li>
+                            <li>Bir sonraki fiş gösterilir</li>
+                            <li>Onaylanan sayaç 1 artar</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Sola Kaydırma → Reddet</div>
+                        <ul>
+                            <li>Kullanıcı kartı sola kaydırır</li>
+                            <li>Kart kırmızı arka plan alır</li>
+                            <li>"✗ Reddet" metni görünür</li>
+                            <li>Bırakıldığında fiş reddedilir</li>
+                            <li>Bir sonraki fiş gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Yukarı Kaydırma → Detay</div>
+                        <ul>
+                            <li>Kullanıcı kartı yukarı kaydırır</li>
+                            <li>Fiş detay sayfası açılır</li>
+                            <li>Detaylı inceleme yapılır</li>
+                            <li>Düzenleme yapılabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Aşağı Kaydırma → Atla</div>
+                        <ul>
+                            <li>Kullanıcı kartı aşağı kaydırır</li>
+                            <li>Fiş atlanır</li>
+                            <li>Bir sonraki fişe geçilir</li>
+                            <li>Atlanan sayaç 1 artar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🎮 Klavye Kısayolları</h2>
+                    <div class="component">
+                        <div class="component-title">Hızlı Tuşlar</div>
+                        <ul>
+                            <li><strong>→ (Sağ Ok) veya Enter:</strong> Onayla</li>
+                            <li><strong>← (Sol Ok) veya Delete:</strong> Reddet</li>
+                            <li><strong>↓ (Aşağı Ok) veya S:</strong> Atla (Skip)</li>
+                            <li><strong>↑ (Yukarı Ok) veya D:</strong> Detay</li>
+                            <li><strong>Esc:</strong> Çık</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">AI Güven Skoru</div>
+                        <ul>
+                            <li><strong>Hesaplama:</strong> OCR algoritması güvenilirlik oranı</li>
+                            <li><strong>Gösterim:</strong> %0-100 arası</li>
+                            <li><strong>%95+:</strong> Yeşil, çok güvenilir</li>
+                            <li><strong>%80-95:</strong> Sarı, kontrol edilmeli</li>
+                            <li><strong>%80 altı:</strong> Kırmızı, mutlaka kontrol</li>
+                            <li><strong>Kullanım:</strong> Hangi fişlere daha dikkat edilmeli</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Otomatik İlerleme</div>
+                        <ul>
+                            <li>Fiş onaylanınca otomatik sonraki fişe geçiş</li>
+                            <li>Smooth transition animasyonu</li>
+                            <li>Son fiş onaylandığında özet ekranı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Geri Alma (Undo)</div>
+                        <ul>
+                            <li>Son işlem geri alınabilir</li>
+                            <li>Ekran altında "Geri Al" toast mesajı</li>
+                            <li>3 saniye içinde tıklanabilir</li>
+                            <li>Son 5 işlem hafızada tutulur</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Filtre Seçenekleri</div>
+                        <ul>
+                            <li><strong>Tümü:</strong> Onay bekleyen tüm fişler</li>
+                            <li><strong>Yüksek Tutar:</strong> Belirli tutarın üzeri</li>
+                            <li><strong>Düşük Güven:</strong> AI skoru düşük olanlar</li>
+                            <li><strong>Belirli Firma:</strong> Tek bir firmadan</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Toplu Onay Sonucu</div>
+                        <ul>
+                            <li>Tüm fişler bittiğinde özet ekranı</li>
+                            <li>Onaylanan: X fiş (yeşil)</li>
+                            <li>Reddedilen: Y fiş (kırmızı)</li>
+                            <li>Atlanan: Z fiş (turuncu)</li>
+                            <li>"Listeye Dön" veya "Rapor Oluştur" seçenekleri</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🎯 Kullanım Senaryoları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Senaryo 1: Hızlı Onay</div>
+                        <ul>
+                            <li>Muhasebeci 50 fiş onaylaması gerekiyor</li>
+                            <li>Seri onay ekranını açar</li>
+                            <li>Her fişi hızlıca kontrol eder</li>
+                            <li>Doğru olanları sağa kaydırarak onaylar</li>
+                            <li>Şüpheli olanları detay ekranından inceler</li>
+                            <li>Hatalı olanları sola kaydırarak reddeder</li>
+                            <li>5 dakikada 50 fiş işler</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Senaryo 2: Klavye ile İşlem</div>
+                        <ul>
+                            <li>Desktop kullanıcısı klavye kısayollarını kullanır</li>
+                            <li>Enter ile hızlıca onaylar</li>
+                            <li>Delete ile reddeder</li>
+                            <li>S ile atlar</li>
+                            <li>Çok hızlı işlem yapar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>💡 Verimlilik:</strong> Seri Onay özelliği, kullanıcının onlarca fişi tek tek detay 
+                    sayfasına girmeden hızlıca işlemesini sağlar. Swipe ve klavye desteği ile hem mobil hem 
+                    desktop'ta maksimum verimlilik sunar.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleComment(featureId) {
+            const commentDiv = document.getElementById(featureId + '-comment');
+            if (commentDiv.style.display === 'none') {
+                commentDiv.style.display = 'block';
+            } else {
+                commentDiv.style.display = 'none';
+            }
+        }
+        
+        // Checkbox durumlarını kaydet
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                localStorage.setItem('seri-onay-' + (e.target.id || Date.now()), e.target.checked);
+            }
+        });
+        
+        // Yorum alanlarını kaydet
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('feature-comment')) {
+                localStorage.setItem('seri-onay-' + e.target.closest('[id]').id + '-comment', e.target.value);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol Menü (Drawer) Analizi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+        .screenshot-panel {
+            background: #f8f9fa;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            border-right: 3px solid #e9ecef;
+        }
+        .screenshot-panel img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .screenshot-label {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #6c757d;
+            text-align: center;
+        }
+        .analysis-panel {
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .section {
+            margin-bottom: 35px;
+        }
+        .section-title {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .component {
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .component-title {
+            color: #764ba2;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .component-description {
+            color: #495057;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #495057;
+        }
+        .feature-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .highlight-box strong {
+            color: #1976d2;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .feature-checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>☰ SOL MENÜ (DRAWER)</h1>
+            <p>Navigasyon Menüsü - Detaylı Analiz</p>
+        </div>
+        
+        <div class="content">
+            <!-- SOL PANEL - EKRAN GÖRÜNTÜSÜ -->
+            <div class="screenshot-panel">
+                <img src="../screenshots/Sol açılır Bar.PNG" alt="Sol Açılır Menü">
+                <div class="screenshot-label">
+                    <strong>Ekran:</strong> Sol Menü (Drawer)<br>
+                    <strong>Component:</strong> Drawer Navigator
+                </div>
+            </div>
+            
+            <!-- SAĞ PANEL - DETAYLI ANLATIM -->
+            <div class="analysis-panel">
+                
+                <div class="section">
+                    <h2 class="section-title">📱 Ekran Genel Bilgisi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Sol Menü (Drawer), uygulamanın ana navigasyon panelid ir. Hamburger menü ikonuna tıklandığında 
+                        ekranın sol tarafından kayarak açılır. Kullanıcı bu menüden uygulamanın tüm ana bölümlerine 
+                        erişebilir. Menü, mavi-mor gradyan arka plan üzerine beyaz metinlerle tasarlanmıştır.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Menü Üst Bölümü</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🏷️ "Menü" Başlığı</div>
+                        <div class="component-description">
+                            Drawer'ın en üst kısmında "Menü" yazısı yer alır. Bu, kullanıcıya menü panelinde olduğunu gösterir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Metin:</strong> "Menü"</li>
+                            <li><strong>Renk:</strong> Beyaz</li>
+                            <li><strong>Font:</strong> Büyük, bold</li>
+                            <li><strong>Konum:</strong> Menü panelinin en üstü</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">✉️ Kullanıcı E-postası</div>
+                        <div class="component-description">
+                            Giriş yapmış kullanıcının e-posta adresi menü başlığının altında gösterilir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İçerik:</strong> "demo@fisokuma.com" (kullanıcının e-postası)</li>
+                            <li><strong>Renk:</strong> Beyaz, yarı saydam</li>
+                            <li><strong>Font:</strong> Küçük, regular</li>
+                            <li><strong>Amaç:</strong> Kullanıcıya hangi hesapla giriş yaptığını hatırlatır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">❌ Kapat Butonu</div>
+                        <div class="component-description">
+                            Menüyü kapatmak için sağ üst köşede "X" ikonu bulunur.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> X (çarpı işareti)</li>
+                            <li><strong>Renk:</strong> Beyaz</li>
+                            <li><strong>Konum:</strong> Sağ üst köşe</li>
+                            <li><strong>Fonksiyon:</strong> Drawer'ı kapatır, ana ekrana döner</li>
+                            <li><strong>Animasyon:</strong> Menü sola kayarak kapanır</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📋 Menü Öğeleri</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🏠 Ana Sayfa</div>
+                        <div class="component-description">
+                            Dashboard (Ana Sayfa) ekranına yönlendiren ilk menü öğesi.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Ev (house) ikonu - yeşil renk</li>
+                            <li><strong>Metin:</strong> "Ana Sayfa"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›) - navigasyon göstergesi</li>
+                            <li><strong>Fonksiyon:</strong> Dashboard ekranına götürür</li>
+                            <li><strong>Aktif Durum:</strong> Eğer şu an ana sayfada isek, öğe vurgulanır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📄 Fişler</div>
+                        <div class="component-description">
+                            Tüm fişlerin listelendiği sayfaya yönlendiren menü öğesi.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Belge/dosya ikonu</li>
+                            <li><strong>Metin:</strong> "Fişler"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Fişlerim listesi sayfasına gider</li>
+                            <li><strong>İçerik:</strong> Kullanıcının tüm fişlerini gösterir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📥 Mükellef Fişleri</div>
+                        <div class="component-description">
+                            Mükelleflerin (tedarikçilerin) gönderdiği fişleri görüntüleme sayfası.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> İndirme/inbox ikonu - mavi renk</li>
+                            <li><strong>Metin:</strong> "Mükellef Fişleri"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Mükelleflerden gelen fişler sayfasına gider</li>
+                            <li><strong>Özellik:</strong> Okunmamış fiş varsa bildirim badge'i gösterilebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">✅ Seri Onay</div>
+                        <div class="component-description">
+                            Birden fazla fişi toplu olarak onaylama sayfası.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Checklist/onay ikonu</li>
+                            <li><strong>Metin:</strong> "Seri Onay"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Toplu fiş onaylama ekranına gider</li>
+                            <li><strong>Kullanım:</strong> Bekleyen fişler hızlıca onaylanır/reddedilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🏢 Firmalar</div>
+                        <div class="component-description">
+                            Kullanıcının kayıtlı firmalarını görüntüleme ve yönetme sayfası.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Bina/şirket ikonu - mavi renk</li>
+                            <li><strong>Metin:</strong> "Firmalar"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Firmalar listesi ve yönetim sayfasına gider</li>
+                            <li><strong>İşlemler:</strong> Firma ekleme, düzenleme, silme</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">➕ Yeni Fiş</div>
+                        <div class="component-description">
+                            Manuel olarak yeni fiş ekleme sayfasına gider.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Artı (plus) ikonu</li>
+                            <li><strong>Metin:</strong> "Yeni Fiş"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Yeni fiş ekleme formuna götürür</li>
+                            <li><strong>Alternatif:</strong> Kamera yerine manuel veri girişi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">⚙️ Ayarlar</div>
+                        <div class="component-description">
+                            Uygulama ayarları ve tercihler sayfası.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Dişli çark (settings) ikonu</li>
+                            <li><strong>Metin:</strong> "Ayarlar"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Ayarlar sayfasına gider</li>
+                            <li><strong>İçerik:</strong> Bildirimler, tema, dil, veri yönetimi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">👤 Hesabım</div>
+                        <div class="component-description">
+                            Kullanıcı profili ve hesap bilgileri sayfası.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kullanıcı (user) ikonu</li>
+                            <li><strong>Metin:</strong> "Hesabım"</li>
+                            <li><strong>Sağ İkon:</strong> Sağ ok (›)</li>
+                            <li><strong>Fonksiyon:</strong> Profil sayfasına gider</li>
+                            <li><strong>İçerik:</strong> Kullanıcı bilgileri, şifre değiştirme, hesap ayarları</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Menü Alt Bölümü</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">ℹ️ Versiyon Bilgisi</div>
+                        <div class="component-description">
+                            Menünün en alt kısmında uygulama versiyon bilgisi gösterilir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Metin:</strong> "Fiş Okuma v1.0.0" (örnek)</li>
+                            <li><strong>Renk:</strong> Beyaz, yarı saydam (opacity: 0.7)</li>
+                            <li><strong>Font:</strong> Çok küçük</li>
+                            <li><strong>Konum:</strong> Menü alt kısmı, merkezi</li>
+                            <li><strong>Amaç:</strong> Kullanıcıya hangi versiyonu kullandığını gösterir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">💰 Kredi Göstergesi (Üstte)</div>
+                        <div class="component-description">
+                            Menü açıkken bile üst bardaki kredi göstergesi görünür durumda kalır.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Konum:</strong> Sağ üst, menünün dışında</li>
+                            <li><strong>İkon:</strong> Sarı cüzdan ikonu</li>
+                            <li><strong>Değer:</strong> "150" (kredi miktarı)</li>
+                            <li><strong>Görünürlük:</strong> Menü açıkken de erişilebilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Kullanıcı Etkileşimleri</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Menü Açma</div>
+                        <ul class="feature-list">
+                            <li>Kullanıcı sol üstteki hamburger menü ikonuna tıklar</li>
+                            <li>Drawer soldan sağa doğru kayarak açılır (slide-in animation)</li>
+                            <li>Ana ekranın üzerine overlay olarak gelir</li>
+                            <li>Ana ekran hafif karartılır (backdrop)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Menü Öğesine Tıklama</div>
+                        <ul class="feature-list">
+                            <li>Kullanıcı menüden bir öğe seçer (örn: "Firmalar")</li>
+                            <li>Seçilen öğe kısa bir süre highlight edilir</li>
+                            <li>Drawer otomatik olarak kapanır</li>
+                            <li>Seçilen sayfaya yönlendirme yapılır</li>
+                            <li>Sayfa geçiş animasyonu gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Menü Kapatma</div>
+                        <div class="component-description">
+                            Menü 3 farklı yolla kapatılabilir:
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>X Butonuna Tıklama:</strong> Sağ üstteki X ikonuna tıklanır</li>
+                            <li><strong>Backdrop'a Tıklama:</strong> Menü dışındaki karartılmış alana tıklanır</li>
+                            <li><strong>Sağa Kaydırma:</strong> Menüyü parmakla sağa doğru kaydırma (swipe gesture)</li>
+                        </ul>
+                        <div class="component-description" style="margin-top: 10px;">
+                            Tüm durumlarda menü sola kayarak kapanır (slide-out animation).
+                        </div>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Aktif Sayfa Vurgulama</div>
+                        <ul class="feature-list">
+                            <li>Kullanıcı hangi sayfada ise, o menü öğesi vurgulanır</li>
+                            <li>Aktif öğe farklı arka plan rengi alır (örn: beyaz/açık mavi)</li>
+                            <li>İkon rengi değişebilir (örn: yeşil → mavi)</li>
+                            <li>Bu sayede kullanıcı navigasyondaki konumunu bilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Gradyan Arka Plan</div>
+                        <div class="component-description">
+                            Menü paneli mavi-mor gradyan arka plana sahiptir. Bu, uygulamanın genel renk teması ile uyumludur.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Renk 1:</strong> Açık mavi (#667eea benzeri)</li>
+                            <li><strong>Renk 2:</strong> Mor (#764ba2 benzeri)</li>
+                            <li><strong>Yön:</strong> Yukarıdan aşağıya veya sol üstten sağ alta</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Gesture (El Hareketi) Desteği</div>
+                        <div class="component-description">
+                            Kullanıcı ekranın sol kenarından sağa doğru kaydırarak (swipe) menüyü açabilir.
+                        </div>
+                        <ul class="feature-list">
+                            <li>Sol kenardan sağa swipe → Menü açılır</li>
+                            <li>Menü açıkken sağa swipe → Menü kapanır</li>
+                            <li>Parmak hareketine göre menü takip eder (interactive)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Bildirim Badge'leri</div>
+                        <div class="component-description">
+                            Bazı menü öğelerinde bildirim sayısı gösterilebilir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Mükellef Fişleri:</strong> Yeni gelen fiş sayısı (örn: kırmızı badge "5")</li>
+                            <li><strong>Seri Onay:</strong> Onay bekleyen fiş sayısı</li>
+                            <li>Badge'ler menü öğesinin sağ tarafında gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Smooth Animasyonlar</div>
+                        <div class="component-description">
+                            Menü açılıp kapanırken yumuşak animasyonlar kullanılır.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Açılma:</strong> 250-300ms slide-in easing</li>
+                            <li><strong>Kapanma:</strong> 200-250ms slide-out easing</li>
+                            <li><strong>Backdrop:</strong> Fade-in/fade-out efekti</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Çoklu Firma Desteği</div>
+                        <div class="component-description">
+                            Kullanıcı birden fazla firmaya kayıtlı ise, menü üst kısmında firma seçici gösterilebilir.
+                        </div>
+                        <ul class="feature-list">
+                            <li>E-posta altında aktif firma adı gösterilir</li>
+                            <li>Dropdown ile firma değiştirilebilir</li>
+                            <li>Firma değiştiğinde ekran yenilenir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🎨 Tasarım Detayları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Menü Genişliği</div>
+                        <ul class="feature-list">
+                            <li><strong>Mobil:</strong> Ekranın %70-80'i</li>
+                            <li><strong>Tablet:</strong> Ekranın %50-60'ı veya sabit 300-350px</li>
+                            <li>Menü dışındaki alan karartılmış backdrop</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Menü Öğesi Görünümü</div>
+                        <ul class="feature-list">
+                            <li><strong>Height:</strong> ~52-56px</li>
+                            <li><strong>Padding:</strong> 12-16px yatay, 10-12px dikey</li>
+                            <li><strong>İkon Boyutu:</strong> 24x24px</li>
+                            <li><strong>İkon-Metin Arası:</strong> 16-20px</li>
+                            <li><strong>Hover/Press Efekti:</strong> Hafif beyaz overlay</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Tipografi</div>
+                        <ul class="feature-list">
+                            <li><strong>Başlık ("Menü"):</strong> 20-22px, Bold, Beyaz</li>
+                            <li><strong>E-posta:</strong> 12-14px, Regular, Beyaz (70% opacity)</li>
+                            <li><strong>Menü Öğeleri:</strong> 16px, Medium, Beyaz</li>
+                            <li><strong>Versiyon:</strong> 10-11px, Regular, Beyaz (60% opacity)</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleComment(featureId) { const commentDiv = document.getElementById(featureId + '-comment'); commentDiv.style.display = commentDiv.style.display === 'none' ? 'block' : 'none'; }
+        document.addEventListener('change', function(e) { if (e.target.type === 'checkbox') localStorage.setItem('drawer-' + (e.target.id || Date.now()), e.target.checked); });
+    </script>
+</body>
+</html>

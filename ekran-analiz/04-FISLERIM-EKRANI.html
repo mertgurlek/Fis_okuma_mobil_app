@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fişlerim Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 450px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; border-right: 3px solid #e9ecef; overflow-y: auto; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); margin-bottom: 25px; }
+        .screenshot-label { margin-bottom: 20px; font-size: 0.9em; color: #6c757d; text-align: center; padding: 10px; background: white; border-radius: 8px; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>📄 FİŞLERİM EKRANI</h1>
+            <p>Fiş Listesi ve Filtreleme</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <div class="screenshot-label"><strong>Ana Görünüm</strong><br>Fişler listesi</div>
+                <img src="../screenshots/Fişlerim ekranı.PNG" alt="Fişlerim">
+                <div class="screenshot-label"><strong>Filtre Paneli</strong><br>Gelişmiş filtreleme</div>
+                <img src="../screenshots/Fişlerim ekranı filtre seçenekleri.PNG" alt="Filtreler">
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p>Kullanıcının tüm fişlerinin listelendiği ekran. Fişleri görüntüleme, filtreleme ve detaylara erişim sağlar.</p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔍 Hızlı Filtreler</h2>
+                    <div class="component">
+                        <div class="component-title">🔍 Doğrulanmış (0)</div>
+                        <ul>
+                            <li>OCR ile okunan ancak kullanıcı doğrulaması bekleyen fişler</li>
+                            <li>Tıklandığında sadece bu tip fişler gösterilir</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">✓ Onaylanmış (9)</div>
+                        <ul>
+                            <li>Kullanıcı tarafından onaylanmış fişler</li>
+                            <li>Yeşil renk ile vurgulanır</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">👥 Mükelleften (5)</div>
+                        <ul>
+                            <li>Tedarikçiler tarafından gönderilen fişler</li>
+                            <li>E-posta veya sistem üzerinden alınan</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">⚙️ Gelişmiş Filtreler</h2>
+                    <div class="component">
+                        <div class="component-title">📊 Durum Filtreleri</div>
+                        <ul>
+                            <li><strong>İşleniyor:</strong> OCR devam ediyor</li>
+                            <li><strong>Doğrulanmış:</strong> OCR tamamlandı, onay bekliyor</li>
+                            <li><strong>Onaylanmış:</strong> Kullanıcı onayladı</li>
+                            <li><strong>Reddedilmiş:</strong> Kullanıcı reddetti</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">👤 Kaynak Filtreleri</div>
+                        <ul>
+                            <li><strong>Müşavir Yükledi:</strong> Muhasebeci tarafından</li>
+                            <li><strong>Mükellef Yükledi:</strong> Tedarikçi tarafından</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">📑 Kategori</div>
+                        <ul>
+                            <li><strong>Yazar Kasa:</strong> Yazar kasa fişleri</li>
+                            <li><strong>Z-Raporu:</strong> Z raporu belgeleri</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">📅 Tarih & 💵 Tutar Aralığı</div>
+                        <ul>
+                            <li>Başlangıç ve bitiş tarihleri seçimi</li>
+                            <li>Minimum ve maksimum tutar girişi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📋 Fiş Kartları</h2>
+                    <div class="component">
+                        <div class="component-title">Kart Elemanları</div>
+                        <ul>
+                            <li><strong>Tarih:</strong> DD.MM.YYYY formatında (örn: 12.07.2024)</li>
+                            <li><strong>Durum Etiketi:</strong> "Onaylı" (yeşil), "Bekliyor" (turuncu), "Reddedildi" (kırmızı)</li>
+                            <li><strong>Firma Adı:</strong> Fişin ait olduğu firma/tedarikçi</li>
+                            <li><strong>VKN:</strong> Vergi kimlik numarası (10 haneli)</li>
+                            <li><strong>Kaynak:</strong> "Mükellef" (sarı) veya "Müşavir" (mavi)</li>
+                            <li><strong>Tutar:</strong> Büyük mavi renkte, TL birimi ile</li>
+                            <li><strong>Düzenle Butonu:</strong> Fişi düzenleme sayfasına götürür</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler</h2>
+                    <div class="component">
+                        <ul>
+                            <li><strong>Hızlı Filtre:</strong> Chip tıklandığında aktif olur, liste filtrelenir</li>
+                            <li><strong>Filtre İkonu:</strong> Gelişmiş filtre panelini açar/kapatır</li>
+                            <li><strong>Kart Tıklama:</strong> Fiş detay sayfasına götürür</li>
+                            <li><strong>Düzenle:</strong> Direkt düzenleme sayfasını açar</li>
+                            <li><strong>Pull-to-Refresh:</strong> Yukarıdan aşağı çekerek liste yenilenir</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function toggleComment(featureId) { const commentDiv = document.getElementById(featureId + '-comment'); commentDiv.style.display = commentDiv.style.display === 'none' ? 'block' : 'none'; }</script>
+</body>
+</html>

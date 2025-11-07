@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Fiş Okuma",
+    "slug": "fis-okuma-mobil-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "fisokuma",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#1F4B8F"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uyumsoft.fisokuma",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Fiş fotoğrafı çekmek için kamera izni gereklidir.",
+        "NSPhotoLibraryUsageDescription": "Galerinizden fiş fotoğrafı seçmek için izin gereklidir."
+      }
+    },
+    "android": {
+      "package": "com.uyumsoft.fisokuma",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Fiş fotoğrafı çekmek için kamera izni gereklidir."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Galerinizden fiş fotoğrafı seçmek için izin gereklidir."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

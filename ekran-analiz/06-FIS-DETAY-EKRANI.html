@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiş Detayı Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 450px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; border-right: 3px solid #e9ecef; overflow-y: auto; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); margin-bottom: 25px; }
+        .screenshot-label { margin-bottom: 20px; font-size: 0.9em; color: #6c757d; text-align: center; padding: 10px; background: white; border-radius: 8px; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>📄 FİŞ DETAYI EKRANI</h1>
+            <p>Fiş Bilgileri ve Düzenleme</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <div class="screenshot-label"><strong>Durum 1</strong><br>Onay bekleyen fiş</div>
+                <img src="../screenshots/fil detayı 1.PNG" alt="Fiş Detayı 1">
+                <div class="screenshot-label"><strong>Durum 2</strong><br>KDV satırları eklenmiş</div>
+                <img src="../screenshots/fiş detayı 2.PNG" alt="Fiş Detayı 2">
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Fiş Detayı ekranı, bir fişin tüm bilgilerinin görüntülendiği ve düzenlenebildiği ekrandır. 
+                        Kullanıcı burada fişin fotoğrafını, temel bilgilerini, KDV detaylarını görebilir ve gerekirse düzenleyebilir.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔙 Üst Bar</h2>
+                    <div class="component">
+                        <div class="component-title">Navigasyon Elemanları</div>
+                        <ul>
+                            <li><strong>Geri Butonu:</strong> Sol ok ikonu, önceki sayfaya döner</li>
+                            <li><strong>Sayfa Başlığı:</strong> "Fiş Detayı"</li>
+                            <li><strong>Kredi:</strong> Sağ üstte 150 kredi göstergesi</li>
+                            <li><strong>Profil:</strong> AL dropdown butonu</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📸 Fiş Görseli</h2>
+                    <div class="component">
+                        <div class="component-title">Görsel Önizleme Alanı</div>
+                        <ul>
+                            <li><strong>Konum:</strong> Ekranın üst kısmında, gri arka planlı alan</li>
+                            <li><strong>Görsel Yok Durumu:</strong> Belge ikonu ve "Fiş Görseli Yok" metni</li>
+                            <li><strong>Görsel Var Durumu:</strong> Fiş fotoğrafı gösterilir</li>
+                            <li><strong>Tıklama:</strong> Görsele tıklandığında tam ekran görüntüleme</li>
+                            <li><strong>Zoom:</strong> Pinch-to-zoom ile yakınlaştırma</li>
+                            <li><strong>Boyut:</strong> ~300-350px yükseklik, full-width</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">⏰ Durum Göstergesi</h2>
+                    <div class="component">
+                        <div class="component-title">🔔 Onay Bekliyor</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Kum saati veya bekle ikonu</li>
+                            <li><strong>Metin:</strong> "Onay Bekliyor" (turuncu renk)</li>
+                            <li><strong>Görünüm:</strong> Pill şeklinde etiket</li>
+                            <li><strong>Alternatifler:</strong> "Onaylı" (yeşil), "Reddedildi" (kırmızı), "İşleniyor" (mavi)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📋 Temel Bilgiler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📅 Tarih</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Tarih"</li>
+                            <li><strong>Değer:</strong> "2024-11-01" (YYYY-MM-DD formatı)</li>
+                            <li><strong>Input Tipi:</strong> Date picker</li>
+                            <li><strong>Düzenlenebilir:</strong> Tıklanınca takvim açılır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔢 Fiş No</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Fiş No"</li>
+                            <li><strong>Değer:</strong> "FIS-2024-0399" (otomatik oluşturulmuş)</li>
+                            <li><strong>Format:</strong> FIS-YYYY-XXXX</li>
+                            <li><strong>Düzenlenebilir:</strong> Manuel değiştirilebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🏢 VKN (Vergi Kimlik Numarası)</div>
+                        <ul>
+                            <li><strong>Label:</strong> "VKN"</li>
+                            <li><strong>Değer:</strong> "2222333344" (10 haneli)</li>
+                            <li><strong>Input Tipi:</strong> Number input</li>
+                            <li><strong>Validasyon:</strong> Tam 10 haneli olmalı</li>
+                            <li><strong>OCR:</strong> Fotoğraftan otomatik çekilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🏪 Ünvan (Firma Adı)</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Ünvan"</li>
+                            <li><strong>Değer:</strong> "Mega Market AVM"</li>
+                            <li><strong>Input Tipi:</strong> Text input</li>
+                            <li><strong>OCR:</strong> Fotoğraftan otomatik çekilir</li>
+                            <li><strong>Otomatik Tamamlama:</strong> VKN girilince ünvan önerilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">💰 Toplam KDV</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Toplam KDV"</li>
+                            <li><strong>Değer:</strong> "1320" TL</li>
+                            <li><strong>Input Tipi:</strong> Number input</li>
+                            <li><strong>Hesaplama:</strong> KDV satırlarının toplamından otomatik hesaplanır</li>
+                            <li><strong>Manuel:</strong> Düzenlenebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📊 Toplam Tutar</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Toplam Tutar"</li>
+                            <li><strong>Değer:</strong> "9020" TL</li>
+                            <li><strong>Açıklama:</strong> KDV dahil toplam fiş tutarı</li>
+                            <li><strong>Input Tipi:</strong> Number input</li>
+                            <li><strong>OCR:</strong> Fotoğraftan çekilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💳 KDV Satırları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📋 KDV Satırları Başlık</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Hesap makinesi ikonu</li>
+                            <li><strong>Metin:</strong> "KDV Satırları"</li>
+                            <li><strong>Ekle Butonu:</strong> Sağda "+ KDV Ekle" butonu (mavi)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Satır Yapısı</div>
+                        <p style="margin-bottom: 10px;">Her KDV satırı 3 alanda bilgi içerir:</p>
+                        <ul>
+                            <li><strong>KDV %:</strong> Vergi oranı (örn: 20, 10, 1)</li>
+                            <li><strong>Matrah:</strong> KDV hariç tutar (örn: 5500, 2200)</li>
+                            <li><strong>KDV Tutarı:</strong> Hesaplanan KDV tutarı (örn: 1100.00, 220.00)</li>
+                            <li><strong>Silme:</strong> Sağda çöp kutusu ikonu, satırı siler</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Satır Ekleme</div>
+                        <ul>
+                            <li>"+ KDV Ekle" butonuna tıklanır</li>
+                            <li>Yeni boş satır eklenir</li>
+                            <li>Kullanıcı KDV %, Matrah ve KDV Tutarı girer</li>
+                            <li>Otomatik hesaplama: KDV Tutarı = Matrah * (KDV % / 100)</li>
+                            <li>İstenildiği kadar satır eklenebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Satır Silme</div>
+                        <ul>
+                            <li>Satır sağındaki çöp kutusu ikonuna tıklanır</li>
+                            <li>Onay dialogu gösterilir: "Bu KDV satırını silmek istediğinizden emin misiniz?"</li>
+                            <li>Onaylandığında satır silinir</li>
+                            <li>Toplam KDV otomatik güncellenir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🏷️ Kategori ve Etiketler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📁 Kategori Seçimi</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Kategori"</li>
+                            <li><strong>Görünüm:</strong> Dropdown select</li>
+                            <li><strong>Placeholder:</strong> "Kategori seçin..."</li>
+                            <li><strong>Seçenekler:</strong> Yazar Kasa, Z-Raporu, Fatura, Diğer</li>
+                            <li><strong>İkon:</strong> Aşağı ok (dropdown indicator)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🏷️ Etiketler</div>
+                        <ul>
+                            <li><strong>Label:</strong> "Etiketler"</li>
+                            <li><strong>Görünüm:</strong> Multi-select dropdown</li>
+                            <li><strong>Buton:</strong> "+ Ekle" butonu</li>
+                            <li><strong>Fonksiyon:</strong> Fişe özel etiketler ekleme</li>
+                            <li><strong>Örnekler:</strong> "Acil", "Onaylı", "Sorunlu" vb.</li>
+                            <li><strong>Çoklu Seçim:</strong> Birden fazla etiket eklenebilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔘 Alt Butonlar</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">💾 Taslak Kaydet</div>
+                        <ul>
+                            <li><strong>Görünüm:</strong> Ghost button (transparent, mavi border)</li>
+                            <li><strong>Metin:</strong> "Taslak Kaydet"</li>
+                            <li><strong>Konum:</strong> Sol tarafta</li>
+                            <li><strong>Fonksiyon:</strong> Fişi taslak olarak kaydeder, onaylamadan çıkılabilir</li>
+                            <li><strong>Durum:</strong> Fiş durumu "Taslak" olur</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">✅ Bilgiler Doğru (Onayla)</div>
+                        <ul>
+                            <li><strong>Görünüm:</strong> Solid button (koyu mavi)</li>
+                            <li><strong>Metin:</strong> "Bilgiler Doğru (Onayla)"</li>
+                            <li><strong>Konum:</strong> Sağ tarafta</li>
+                            <li><strong>Fonksiyon:</strong> Fişi onaylar ve kaydeder</li>
+                            <li><strong>Validasyon:</strong> Zorunlu alanlar dolu olmalı</li>
+                            <li><strong>Sonraki Adım:</strong> Başarı mesajı ve liste sayfasına dönüş</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Form Düzenleme</div>
+                        <ul>
+                            <li>Herhangi bir alana tıklandığında düzenleme modu açılır</li>
+                            <li>Değişiklikler anlık kaydedilmez, buton ile kaydedilir</li>
+                            <li>Geri butonuna basılırsa: "Değişiklikler kaydedilmemiş, çıkmak istediğinize emin misiniz?"</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Otomatik Hesaplamalar</div>
+                        <ul>
+                            <li>KDV satırında matrah ve oran girilince KDV tutarı otomatik hesaplanır</li>
+                            <li>KDV satırları değişince Toplam KDV otomatik güncellenir</li>
+                            <li>Toplam Tutar = Matrah Toplamı + Toplam KDV</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Validasyon</div>
+                        <ul>
+                            <li><strong>Zorunlu Alanlar:</strong> Tarih, VKN, Ünvan, Toplam Tutar</li>
+                            <li><strong>Format Kontrolleri:</strong> VKN 10 haneli, tarih geçerli olmalı</li>
+                            <li><strong>Sayısal Kontroller:</strong> Tutarlar negatif olamaz</li>
+                            <li><strong>Hata Mesajları:</strong> Alan altında kırmızı metin ile gösterilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">OCR Entegrasyonu</div>
+                        <ul>
+                            <li>Fiş fotoğrafından otomatik veri çekimi</li>
+                            <li>VKN, ünvan, tarih, tutarlar OCR ile doldurulur</li>
+                            <li>KDV satırları otomatik tanınır</li>
+                            <li>Kullanıcı düzeltme yapabilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Firma Veritabanı</div>
+                        <ul>
+                            <li>VKN girilince sistem firma veritabanından ünvan önerir</li>
+                            <li>Daha önce eklenmiş firmalar otomatik tamamlanır</li>
+                            <li>Yeni firma ise veritabanına eklenir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Taslak Sistemi</div>
+                        <ul>
+                            <li>Yarım kalan fişler taslak olarak saklanır</li>
+                            <li>Kullanıcı istediği zaman devam edebilir</li>
+                            <li>Taslak fişler listede özel ikon ile gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔍 Müşteri Değişiklik Loglama Sistemi</div>
+                        <ul>
+                            <li><strong>Otomatik Log Kaydı:</strong> Müşteri tarafından yapılan her değişiklik loglanır</li>
+                            <li><strong>Değişiklik Türleri:</strong>
+                                <ul>
+                                    <li>Firma bilgileri değişikliği (Ünvan, VKN)</li>
+                                    <li>Tarih düzeltmeleri</li>
+                                    <li>Tutar değişiklikleri</li>
+                                    <li>KDV satırları ekleme/çıkarma/düzenleme</li>
+                                    <li>Fiş kategori değişiklikleri</li>
+                                </ul>
+                            </li>
+                            <li><strong>Log Bilgileri:</strong>
+                                <ul>
+                                    <li>Değişiklik zamanı (timestamp)</li>
+                                    <li>Değiştiren kullanıcı bilgisi</li>
+                                    <li>Eski değer → Yeni değer</li>
+                                    <li>Değişiklik nedeni (opsiyonel)</li>
+                                    <li>IP adresi ve cihaz bilgisi</li>
+                                </ul>
+                            </li>
+                            <li><strong>Görüntüleme:</strong> Fiş detay sayfasında "Değişiklik Geçmişi" bölümü</li>
+                            <li><strong>Raporlama:</strong> Değişiklik raporları oluşturulabilir</li>
+                            <li><strong>Uyarı Sistemi:</strong> Kritik değişikliklerde e-posta bildirimi</li>
+                            <li><strong>Geri Alma:</strong> Son değişiklikler geri alınabilir (24 saat)</li>
+                            <li><strong>Denetim İzi:</strong> Vergi denetimi için tam kayıt tutma</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>💡 İş Akışı:</strong> Kullanıcı OCR ile çekilen verileri kontrol eder, gerekirse düzeltir, 
+                    KDV satırlarını ekler/düzenler ve "Bilgiler Doğru" butonuyla onaylar. Yarım kalan işlemler 
+                    "Taslak Kaydet" ile saklanabilir. <strong>Tüm müşteri değişiklikleri otomatik olarak loglanır ve 
+                    denetim izi oluşturulur.</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

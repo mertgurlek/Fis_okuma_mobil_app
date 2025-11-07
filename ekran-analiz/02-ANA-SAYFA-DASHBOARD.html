@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa (Dashboard) Analizi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+        .screenshot-panel {
+            background: #f8f9fa;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            border-right: 3px solid #e9ecef;
+        }
+        .screenshot-panel img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .screenshot-label {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #6c757d;
+            text-align: center;
+        }
+        .analysis-panel {
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .section {
+            margin-bottom: 35px;
+        }
+        .section-title {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .component {
+            background: #f8f9fa;
+            border-left: 4px solid #764ba2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .component-title {
+            color: #764ba2;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .component-description {
+            color: #495057;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #495057;
+        }
+        .feature-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .highlight-box strong {
+            color: #1976d2;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .back-button:hover {
+            background: #5a67d8;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .feature-checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+            transform: scale(1.2);
+        }
+        .feature-content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 ANA SAYFA (DASHBOARD)</h1>
+            <p>Dashboard Ekranı - Detaylı Analiz</p>
+        </div>
+        
+        <div class="content">
+            <!-- SOL PANEL - EKRAN GÖRÜNTÜSÜ -->
+            <div class="screenshot-panel">
+                <img src="../screenshots/Ana Sayfa Ekranı.PNG" alt="Ana Sayfa Ekranı">
+                <div class="screenshot-label">
+                    <strong>Ekran:</strong> Ana Sayfa<br>
+                    <strong>Dosya:</strong> app/(tabs)/dashboard.tsx
+                </div>
+            </div>
+            
+            <!-- SAĞ PANEL - DETAYLI ANLATIM -->
+            <div class="analysis-panel">
+                
+                <div class="section">
+                    <h2 class="section-title">📱 Ekran Genel Bilgisi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Ana Sayfa (Dashboard), kullanıcının giriş yaptıktan sonra karşılaştığı ilk ekrandır. 
+                        Bu ekran, kullanıcının fiş yönetim işlemlerine hızlı erişim sağlar ve özet bilgileri gösterir.
+                        Üst kısımda istatistikler, ortada hızlı işlem butonları ve alt kısımda son işlemler listesi yer alır.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Üst Bar (Header)</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">☰ Hamburger Menü İkonu</div>
+                        <div class="component-description">
+                            Ekranın sol üst köşesinde yer alan üç yatay çizgiden oluşan menü ikonu.
+                            Tıklandığında sol taraftan menü paneli açılır.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Konum:</strong> Sol üst köşe</li>
+                            <li><strong>İkon:</strong> Üç yatay çizgi (hamburger menu)</li>
+                            <li><strong>Fonksiyon:</strong> Sol menüyü açar/kapatır</li>
+                            <li><strong>Animasyon:</strong> Menü soldan kayarak açılır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📄 "Ana Sayfa" Başlığı</div>
+                        <div class="component-description">
+                            Kullanıcının hangi ekranda olduğunu gösteren sayfa başlığı. Merkezi konumda yer alır.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Metin:</strong> "Ana Sayfa"</li>
+                            <li><strong>Renk:</strong> Koyu gri/siyah</li>
+                            <li><strong>Font:</strong> Orta boy, semi-bold</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">💰 Kredi Göstergesi</div>
+                        <div class="component-description">
+                            Kullanıcının mevcut kredi/token bakiyesini gösteren bilgi alanı.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Sarı cüzdan/para ikonu</li>
+                            <li><strong>Değer:</strong> "150" (sayısal kredi miktarı)</li>
+                            <li><strong>Renk:</strong> Sarı arka plan, siyah metin</li>
+                            <li><strong>Fonksiyon:</strong> Kullanıcının OCR işlemleri için kullanabileceği kredi gösterir</li>
+                            <li><strong>Tıklanabilir:</strong> Tıklandığında kredi satın alma sayfasına gidebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">👤 Profil Butonu (AL ▼)</div>
+                        <div class="component-description">
+                            Kullanıcı profiline erişim sağlayan dropdown menü butonu. Kullanıcı adının baş harflerini gösterir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Görünüm:</strong> Yuvarlak mavi buton</li>
+                            <li><strong>İçerik:</strong> Kullanıcı adı baş harfleri (örn: "AL") + aşağı ok</li>
+                            <li><strong>Fonksiyon:</strong> Tıklandığında profil menüsü açılır</li>
+                            <li><strong>Menü İçeriği:</strong> Hesabım, Ayarlar, Çıkış Yap gibi seçenekler</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📈 İstatistik Kartları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📥 Mükelleften Gelen Fişler</div>
+                        <div class="component-description">
+                            Mükelleflerin (tedarikçiler) gönderdiği fiş sayısını gösteren bilgi kartı.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> İnbox/Gelen kutusu ikonu</li>
+                            <li><strong>Başlık:</strong> "MÜKELLEFTEN GELEN"</li>
+                            <li><strong>Sayı:</strong> "0" (büyük font)</li>
+                            <li><strong>Alt Metin:</strong> "0 onaylı, 0 bekliyor"</li>
+                            <li><strong>Renk:</strong> Gri tonlarında, minimal tasarım</li>
+                            <li><strong>Fonksiyon:</strong> Tıklandığında mükellef fişleri sayfasına gider</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">⏳ Onay Bekleyen Fişler</div>
+                        <div class="component-description">
+                            Kullanıcının onay vermesi gereken beklemedeki fiş sayısını gösterir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kum saati ikonu</li>
+                            <li><strong>Başlık:</strong> "ONAY BEKLEYEN"</li>
+                            <li><strong>Sayı:</strong> "0" (büyük font)</li>
+                            <li><strong>Alt Metin:</strong> "Bekleyen işlemler"</li>
+                            <li><strong>Uyarı:</strong> Bekleyen fiş varsa sayı turuncu/kırmızı renkte vurgulanabilir</li>
+                            <li><strong>Fonksiyon:</strong> Tıklandığında onay bekleyen fişler listesine gider</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">💵 Toplam KDV</div>
+                        <div class="component-description">
+                            Kullanıcının kaydettiği tüm fişlerdeki toplam KDV tutarını gösterir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Para torbası/kesesi ikonu</li>
+                            <li><strong>Başlık:</strong> "TOPLAM KDV"</li>
+                            <li><strong>Tutar:</strong> "₺0.00" (para birimi ile)</li>
+                            <li><strong>Alt Metin:</strong> "0 onaylı fiş"</li>
+                            <li><strong>Renk:</strong> Sarı/altın tonları</li>
+                            <li><strong>Fonksiyon:</strong> Mali rapor özeti gösterir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📊 Toplam Tutar</div>
+                        <div class="component-description">
+                            Tüm fişlerdeki toplam harcama tutarını gösterir.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Grafik/çubuk grafik ikonu</li>
+                            <li><strong>Başlık:</strong> "TOPLAM TUTAR"</li>
+                            <li><strong>Tutar:</strong> "₺0.00" (para birimi ile)</li>
+                            <li><strong>Alt Metin:</strong> "Ort: ₺0.00" (ortalama fiş tutarı)</li>
+                            <li><strong>Renk:</strong> Mavi tonları</li>
+                            <li><strong>Fonksiyon:</strong> Mali özet ve analiz</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">⚡ Hızlı İşlemler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📷 Fiş Kamera</div>
+                        <div class="component-description">
+                            Doğrudan kamera açarak fiş fotoğrafı çekmeyi sağlar.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kamera ikonu</li>
+                            <li><strong>Metin:</strong> "Fiş Kamera"</li>
+                            <li><strong>Fonksiyon:</strong> Cihaz kamerasını açar, fiş fotoğrafı çekilir</li>
+                            <li><strong>Sonraki Adım:</strong> OCR işlemi başlatılır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🖼️ Fiş Galeri</div>
+                        <div class="component-description">
+                            Cihaz galerisinden var olan bir fiş fotoğrafı seçmeyi sağlar.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Resim galeri ikonu</li>
+                            <li><strong>Metin:</strong> "Fiş Galeri"</li>
+                            <li><strong>Fonksiyon:</strong> Galeri açılır, kullanıcı fiş fotoğrafı seçer</li>
+                            <li><strong>Sonraki Adım:</strong> Seçilen görsel OCR işlemine gönderilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📸 Z Raporu Kamera</div>
+                        <div class="component-description">
+                            Z raporu çekmek için özel kamera modunu açar.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kamera ikonu (koyu renk)</li>
+                            <li><strong>Metin:</strong> "Z Raporu Kamera"</li>
+                            <li><strong>Fonksiyon:</strong> Z raporu çekmek için özelleştirilmiş kamera</li>
+                            <li><strong>Özel Özellik:</strong> Z raporu formatına göre OCR optimizasyonu</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🖼️ Z Raporu Galeri</div>
+                        <div class="component-description">
+                            Galeriden Z raporu fotoğrafı seçmeyi sağlar.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Resim galeri ikonu (yeşil vurgu)</li>
+                            <li><strong>Metin:</strong> "Z Raporu Galeri"</li>
+                            <li><strong>Fonksiyon:</strong> Galeriden Z raporu seçimi</li>
+                            <li><strong>İşlem:</strong> Z raporu OCR ve analizi</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>💡 Hızlı İşlem Mantığı:</strong> Bu butonlar kullanıcının en çok yaptığı işlemlere hızlı erişim sağlar. 
+                        Kamera ve galeri seçenekleri ile hem anlık hem de önceden çekilmiş fişler işlenebilir.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📋 Son İşlemler Listesi</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📝 Son İşlemler Bölümü</div>
+                        <div class="component-description">
+                            Kullanıcının son zamanlarda eklediği veya işlediği fişlerin listesi.
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Başlık:</strong> "Son İşlemler"</li>
+                            <li><strong>Sağ Üst:</strong> "Tümünü Gör" linki (mavi renk)</li>
+                            <li><strong>Liste Elemanları:</strong> Her fiş için bir satır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📄 Fiş Liste Elemanı</div>
+                        <div class="component-description">
+                            Her bir fiş kartı aşağıdaki bilgileri içerir:
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Üst Satır:</strong> Firma adı (örn: "Hasgül Fotoğrafçılık - Gülten Duman")</li>
+                            <li><strong>Alt Satır:</strong> Tarih (örn: "2024-07-14")</li>
+                            <li><strong>Sağ Taraf:</strong> Tutar (örn: "₺810.00")</li>
+                            <li><strong>Durum Etiketi:</strong> "Onaylı" (yeşil), "Bekliyor" (turuncu), "Reddedildi" (kırmızı)</li>
+                            <li><strong>Tıklama:</strong> Fişin detay sayfasına gider</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Örnek Fiş Kayıtları</div>
+                        <div class="component-description">
+                            Ekran görüntüsünde görülen örnek fişler:
+                        </div>
+                        <ul class="feature-list">
+                            <li><strong>Fiş 1:</strong> Hasgül Fotoğrafçılık - ₺810.00 - Onaylı (yeşil)</li>
+                            <li><strong>Fiş 2:</strong> Kartal - Çetinkaya Şok. - ₺1367.00 - Bekliyor (turuncu)</li>
+                            <li><strong>Fiş 3:</strong> Yaşa Gıda Sanayi ve Ticaret Ltd. Şti. - ₺455.00 - Onaylı (yeşil)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📱 Alt Navigasyon Çubuğu</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🏠 Ana Sayfa</div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Ev ikonu</li>
+                            <li><strong>Durum:</strong> Aktif (renkli)</li>
+                            <li><strong>Fonksiyon:</strong> Ana sayfaya götürür (şu an bu sayfada)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📄 Fişlerim</div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Belge/dosya ikonu</li>
+                            <li><strong>Durum:</strong> Pasif (gri)</li>
+                            <li><strong>Fonksiyon:</strong> Tüm fişler listesine gider</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📸 Kamera (Merkezi Buton)</div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kamera ikonu</li>
+                            <li><strong>Görünüm:</strong> Büyük, yuvarlak, mavi arka planlı</li>
+                            <li><strong>Konum:</strong> Merkez, diğer butonlardan daha büyük</li>
+                            <li><strong>Fonksiyon:</strong> Hızlı kamera erişimi (FAB - Floating Action Button)</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">➕ Yeni Fiş</div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Artı ikonu</li>
+                            <li><strong>Durum:</strong> Pasif (gri)</li>
+                            <li><strong>Fonksiyon:</strong> Manuel fiş ekleme sayfasına gider</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">👤 Hesabım</div>
+                        <ul class="feature-list">
+                            <li><strong>İkon:</strong> Kullanıcı ikonu</li>
+                            <li><strong>Durum:</strong> Pasif (gri)</li>
+                            <li><strong>Fonksiyon:</strong> Kullanıcı profil ve ayarlar sayfasına gider</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Kullanıcı Etkileşimleri</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">İstatistik Kartlarına Tıklama</div>
+                        <ul class="feature-list">
+                            <li>Kullanıcı herhangi bir istatistik kartına tıklar</li>
+                            <li>İlgili detay sayfasına yönlendirilir</li>
+                            <li>Örn: "Toplam KDV" kartına tıklandığında mali rapor sayfası açılır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Hızlı İşlem Butonlarına Tıklama</div>
+                        <ul class="feature-list">
+                            <li>"Fiş Kamera" tıklandığında kamera açılır</li>
+                            <li>Fiş fotoğrafı çekilir</li>
+                            <li>OCR işlemi başlar</li>
+                            <li>Sonuç ekranı gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Son İşlemlerde Fişe Tıklama</div>
+                        <ul class="feature-list">
+                            <li>Kullanıcı listeden bir fiş seçer</li>
+                            <li>Fişin detay sayfası açılır</li>
+                            <li>Fiş bilgileri, fotoğraf ve işlemler gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">"Tümünü Gör" Linkine Tıklama</div>
+                        <ul class="feature-list">
+                            <li>Son işlemler bölümündeki "Tümünü Gör" linkine tıklanır</li>
+                            <li>"Fişlerim" sayfasına yönlendirilir</li>
+                            <li>Tüm fişler listesi gösterilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Gerçek Zamanlı Güncelleme</div>
+                        <div class="component-description">
+                            İstatistik kartları ve son işlemler listesi, yeni fiş eklendiğinde veya işlem yapıldığında otomatik güncellenir.
+                        </div>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Pull-to-Refresh</div>
+                        <div class="component-description">
+                            Ekranı yukarıdan aşağıya kaydırarak verileri yenileme özelliği. Kullanıcı en güncel bilgileri görmek için çekip yenileyebilir.
+                        </div>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Boş Durum Mesajı</div>
+                        <div class="component-description">
+                            Henüz hiç fiş eklenmemişse, son işlemler bölümünde "Henüz işlem bulunmuyor. Hemen fiş eklemeye başlayın!" mesajı gösterilir.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleComment(featureId) {
+            const commentDiv = document.getElementById(featureId + '-comment');
+            if (commentDiv.style.display === 'none') {
+                commentDiv.style.display = 'block';
+            } else {
+                commentDiv.style.display = 'none';
+            }
+        }
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                localStorage.setItem('dashboard-' + (e.target.id || Date.now()), e.target.checked);
+            }
+        });
+    </script>
+</body>
+</html>

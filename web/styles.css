@@ -1,0 +1,214 @@
+/**
+ * Web Platform Optimizasyonları
+ * Fis Okuma Mobile App - Web Uyumluluğu
+ */
+
+/* Global Web Optimizations */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f7fb;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/* React Native Web Optimizations */
+.rn-view {
+  box-sizing: border-box;
+}
+
+/* Prevent text node errors in View components */
+.rn-view:empty::before {
+  content: "";
+  display: none;
+}
+
+/* Fix conditional rendering issues */
+.rn-view > * {
+  display: block;
+}
+
+.rn-view > span:empty {
+  display: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(31, 75, 143, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(31, 75, 143, 0.5);
+}
+
+/* Mobile-first Responsive Layout */
+@media (min-width: 768px) {
+  /* Tablet Optimizations */
+  #root {
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop Optimizations */
+  #root {
+    max-width: 1400px;
+    border-radius: 12px;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+}
+
+/* Card Hover Effects for Web */
+@media (hover: hover) {
+  .receipt-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(31, 75, 143, 0.15);
+    transition: all 0.3s ease;
+  }
+  
+  .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(31, 75, 143, 0.2);
+    transition: all 0.2s ease;
+  }
+}
+
+/* Focus States for Accessibility */
+input:focus,
+button:focus,
+.touchable:focus {
+  outline: 2px solid #1f4b8f;
+  outline-offset: 2px;
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Grid System for Web */
+.grid-container {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 24px;
+    padding: 32px;
+  }
+}
+
+/* Web Typography Improvements */
+.text-selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Prevent text selection on UI elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Web-specific animations */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}

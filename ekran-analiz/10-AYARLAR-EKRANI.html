@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayarlar Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 400px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; display: flex; flex-direction: column; align-items: center; border-right: 3px solid #e9ecef; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        .screenshot-label { margin-top: 15px; font-size: 0.9em; color: #6c757d; text-align: center; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        
+        /* Yeni özellikler için stiller */
+        .back-button { 
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            background: #667eea; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .back-button:hover { background: #5a67d8; }
+        
+        .feature-item { 
+            display: flex; 
+            align-items: flex-start; 
+            margin-bottom: 15px; 
+            padding: 10px; 
+            border-radius: 6px; 
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .feature-checkbox { 
+            margin-right: 10px; 
+            margin-top: 2px; 
+            transform: scale(1.2); 
+        }
+        .feature-content { 
+            flex: 1; 
+        }
+        .feature-comment { 
+            margin-top: 8px; 
+            padding: 8px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            font-size: 0.9em; 
+            background: white;
+            width: 100%;
+            resize: vertical;
+            min-height: 60px;
+        }
+        .feature-status { 
+            margin-left: 10px; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-size: 0.8em; 
+            font-weight: bold;
+        }
+        .status-completed { background: #d4edda; color: #155724; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .comment-toggle { 
+            margin-left: 10px; 
+            padding: 4px 8px; 
+            background: #6c757d; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 0.8em;
+        }
+        .comment-toggle:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ AYARLAR EKRANI</h1>
+            <p>Uygulama Ayarları ve Tercihler</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <img src="../screenshots/Ayarlar Ekranı.PNG" alt="Ayarlar">
+                <div class="screenshot-label">
+                    <strong>Ekran:</strong> Ayarlar<br>
+                    <strong>Dosya:</strong> app/settings.tsx
+                </div>
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Ayarlar ekranı, kullanıcının uygulama tercihlerini özelleştirdiği, bildirim ayarlarını 
+                        yönettiği ve sistem yapılandırmalarını düzenlediği bölümdür. Kategorize edilmiş ayar 
+                        grupları ile kolay navigasyon sağlar.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔧 Genel Ayarlar</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📢 Bildirimler</div>
+                        <ul>
+                            <li><strong>Toggle Switch:</strong> Açık/Kapalı</li>
+                            <li><strong>Varsayılan:</strong> Açık</li>
+                            <li><strong>Fonksiyon:</strong> Tüm push bildirimleri açar/kapatır</li>
+                            <li><strong>Alt Ayarlar:</strong>
+                                <ul>
+                                    <li>Yeni fiş bildirimi</li>
+                                    <li>Onay bekleyen fiş uyarısı</li>
+                                    <li>Kontör düşük uyarısı</li>
+                                    <li>Sistem bildirimleri</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔄 Otomatik Senkronizasyon</div>
+                        <ul>
+                            <li><strong>Toggle Switch:</strong> Açık/Kapalı</li>
+                            <li><strong>Varsayılan:</strong> Açık</li>
+                            <li><strong>Fonksiyon:</strong> Veriler otomatik senkronize edilir</li>
+                            <li><strong>Açıklama:</strong> Fişler, firmalar ve ayarlar cihazlar arası senkronize olur</li>
+                            <li><strong>Sıklık:</strong> 5 dakikada bir veya veri değiştiğinde</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🎨 Görünüm Ayarları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🌙 Koyu Tema 
+                            <span class="feature-status status-completed">✓ Tamamlandı</span>
+                            <button class="comment-toggle" onclick="toggleComment('koyu-tema')">💬 Yorum</button>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox" checked>
+                            <div class="feature-content">
+                                <strong>Toggle Switch:</strong> Açık/Kapalı
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox" checked>
+                            <div class="feature-content">
+                                <strong>Varsayılan:</strong> Kapalı
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox" checked>
+                            <div class="feature-content">
+                                <strong>Fonksiyon:</strong> Dark mode aktif eder
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox" checked>
+                            <div class="feature-content">
+                                <strong>Açık:</strong> Koyu arka plan, beyaz metinler
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox" checked>
+                            <div class="feature-content">
+                                <strong>Kapalı:</strong> Açık arka plan, koyu metinler
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <input type="checkbox" class="feature-checkbox">
+                            <div class="feature-content">
+                                <strong>Sistem Tercihine Uyma:</strong> Cihaz temasını takip eder
+                            </div>
+                        </div>
+                        
+                        <div id="koyu-tema-comment" style="display: none;">
+                            <textarea class="feature-comment" placeholder="Bu özellik hakkında yorumunuzu yazın...">Koyu tema başarıyla implement edildi. Kullanıcı geri bildirimleri pozitif. Sistem tercihi özelliği henüz eklenmedi - gelecek versiyonda planlanıyor.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📐 Yazı Boyutu</div>
+                        <ul>
+                            <li><strong>Seçici:</strong> Dropdown veya slider</li>
+                            <li><strong>Şu Anki:</strong> "Orta" (sağda gösterilir)</li>
+                            <li><strong>Seçenekler:</strong>
+                                <ul>
+                                    <li>Küçük</li>
+                                    <li>Orta (Varsayılan)</li>
+                                    <li>Büyük</li>
+                                    <li>Çok Büyük</li>
+                                </ul>
+                            </li>
+                            <li><strong>Erişilebilirlik:</strong> Görme zorluğu olanlar için</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💾 Veri ve Depolama</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📦 Önbellek Boyutu</div>
+                        <ul>
+                            <li><strong>Bilgi:</strong> "45 MB" (sağda gösterilir)</li>
+                            <li><strong>Açıklama:</strong> Cihazda saklanan geçici veri miktarı</li>
+                            <li><strong>İçerik:</strong>
+                                <ul>
+                                    <li>Fiş fotoğrafları</li>
+                                    <li>Önbelleklenmiş veriler</li>
+                                    <li>Geçici dosyalar</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🗑️ Önbelleği Temizle</div>
+                        <ul>
+                            <li><strong>Buton:</strong> Mavi link butonu</li>
+                            <li><strong>Fonksiyon:</strong> Geçici verileri siler</li>
+                            <li><strong>Onay:</strong> "Önbelleği temizlemek istediğinizden emin misiniz?" dialogu</li>
+                            <li><strong>Sonuç:</strong> Önbellek boyutu 0 MB olur</li>
+                            <li><strong>Etki:</strong>
+                                <ul>
+                                    <li>Fotoğraflar yeniden indirilir</li>
+                                    <li>İlk açılış biraz yavaş olabilir</li>
+                                    <li>Giriş bilgileri korunur</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">ℹ️ Hakkında</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📱 Versiyon</div>
+                        <ul>
+                            <li><strong>Bilgi:</strong> "1.0.0" (sağda gösterilir)</li>
+                            <li><strong>Format:</strong> Major.Minor.Patch</li>
+                            <li><strong>Tıklama:</strong> Versiyon notları sayfası</li>
+                            <li><strong>Gizli:</strong> 7 kez tıklandığında geliştirici modu</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📜 Gizlilik Politikası</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Fonksiyon:</strong> Gizlilik politikası sayfasını açar</li>
+                            <li><strong>İçerik:</strong> Veri toplama, kullanım, saklama politikaları</li>
+                            <li><strong>Format:</strong> Web görünümü veya PDF</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📋 Kullanım Koşulları</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Fonksiyon:</strong> Kullanım koşulları sayfasını açar</li>
+                            <li><strong>İçerik:</strong> Hizmet kullanım şartları</li>
+                            <li><strong>Zorunlu:</strong> Kabul edilmeden kullanım yapılamaz</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📞 Destek ve Geri Bildirim</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">💬 Geri Bildirim Gönder</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Fonksiyon:</strong> Geri bildirim formu açar</li>
+                            <li><strong>Form Alanları:</strong>
+                                <ul>
+                                    <li>Konu seçimi (Hata, Öneri, Diğer)</li>
+                                    <li>Mesaj metni</li>
+                                    <li>Ekran görüntüsü ekleme</li>
+                                    <li>E-posta adresi</li>
+                                </ul>
+                            </li>
+                            <li><strong>Gönderim:</strong> Destek ekibine e-posta gönderilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">❓ Sıkça Sorulan Sorular</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Fonksiyon:</strong> FAQ sayfasını açar</li>
+                            <li><strong>İçerik:</strong>
+                                <ul>
+                                    <li>Nasıl fiş eklerim?</li>
+                                    <li>Fişleri nasıl onaylarım?</li>
+                                    <li>OCR nasıl çalışır?</li>
+                                    <li>Kontör nedir?</li>
+                                    <li>Firma nasıl eklerim?</li>
+                                    <li>Abonelik nasıl yükseltilir?</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📧 İletişim</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Bilgiler:</strong>
+                                <ul>
+                                    <li>E-posta: destek@fisokuma.com</li>
+                                    <li>Telefon: +90 XXX XXX XX XX</li>
+                                    <li>Adres: Ofis adresi</li>
+                                    <li>Çalışma Saatleri: 09:00-18:00</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔐 Güvenlik Ayarları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🔒 Biyometrik Kimlik Doğrulama</div>
+                        <ul>
+                            <li><strong>Toggle:</strong> Açık/Kapalı</li>
+                            <li><strong>Fonksiyon:</strong> Parmak izi veya yüz tanıma ile giriş</li>
+                            <li><strong>Desteklenen:</strong> Touch ID, Face ID, Fingerprint</li>
+                            <li><strong>Güvenlik:</strong> Hassas işlemler için ek doğrulama</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔑 Şifre Değiştir</div>
+                        <ul>
+                            <li><strong>Link:</strong> Sağda ok ikonu</li>
+                            <li><strong>Fonksiyon:</strong> Şifre değiştirme formu açar</li>
+                            <li><strong>Gerekli:</strong>
+                                <ul>
+                                    <li>Mevcut şifre</li>
+                                    <li>Yeni şifre</li>
+                                    <li>Yeni şifre tekrar</li>
+                                </ul>
+                            </li>
+                            <li><strong>Validasyon:</strong> Min 8 karakter, 1 büyük harf, 1 rakam</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📱 İki Faktörlü Doğrulama</div>
+                        <ul>
+                            <li><strong>Toggle:</strong> Açık/Kapalı</li>
+                            <li><strong>Fonksiyon:</strong> SMS veya uygulama ile 2FA</li>
+                            <li><strong>Kurulum:</strong>
+                                <ul>
+                                    <li>Telefon numarası doğrulama</li>
+                                    <li>Google Authenticator bağlama</li>
+                                    <li>Yedek kodlar alma</li>
+                                </ul>
+                            </li>
+                            <li><strong>Güvenlik:</strong> Giriş sırasında ek kod istenir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Gelişmiş Ayarlar</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">🎯 OCR Hassasiyeti</div>
+                        <ul>
+                            <li><strong>Slider:</strong> Düşük - Orta - Yüksek</li>
+                            <li><strong>Düşük:</strong> Hızlı işlem, daha az doğru</li>
+                            <li><strong>Orta:</strong> Dengeli (Varsayılan)</li>
+                            <li><strong>Yüksek:</strong> Yavaş işlem, çok doğru</li>
+                            <li><strong>Etki:</strong> Kontör kullanımını etkiler</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📷 Kamera Kalitesi</div>
+                        <ul>
+                            <li><strong>Seçici:</strong> Düşük / Orta / Yüksek</li>
+                            <li><strong>Düşük:</strong> Daha az depolama, daha düşük OCR</li>
+                            <li><strong>Orta:</strong> Dengeli</li>
+                            <li><strong>Yüksek:</strong> En iyi kalite, daha fazla yer</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🔄 Otomatik Yedekleme</div>
+                        <ul>
+                            <li><strong>Toggle:</strong> Açık/Kapalı</li>
+                            <li><strong>Fonksiyon:</strong> Veriler buluta otomatik yedeklenir</li>
+                            <li><strong>Sıklık:</strong> Günlük / Haftalık / Aylık</li>
+                            <li><strong>İçerik:</strong> Fişler, firmalar, ayarlar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Ayar Değiştirme</div>
+                        <ul>
+                            <li>Toggle switch'e tıklanır</li>
+                            <li>Ayar anında değişir</li>
+                            <li>Değişiklik backend'e kaydedilir</li>
+                            <li>İzin gerektiriyorsa: İzin dialogu gösterilir</li>
+                            <li>Başarı/hata toast mesajı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Alt Sayfa Açma</div>
+                        <ul>
+                            <li>Sağda oku olan ayara tıklanır</li>
+                            <li>İlgili detay sayfası açılır</li>
+                            <li>Slide-in animasyonu</li>
+                            <li>Geri butonu ile dönülebilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="highlight-box">
+                    <strong>💡 Kişiselleştirme:</strong> Ayarlar ekranı, kullanıcının uygulamayı kendi 
+                    ihtiyaçlarına göre özelleştirmesini sağlar. Bildirimlerden tema seçimine, güvenlik 
+                    ayarlarından veri yönetimine kadar geniş kontrol sunar.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleComment(featureId) {
+            const commentDiv = document.getElementById(featureId + '-comment');
+            if (commentDiv.style.display === 'none') {
+                commentDiv.style.display = 'block';
+            } else {
+                commentDiv.style.display = 'none';
+            }
+        }
+        
+        // Checkbox durumlarını kaydet
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                localStorage.setItem(e.target.id || 'checkbox-' + Date.now(), e.target.checked);
+            }
+        });
+        
+        // Yorum alanlarını kaydet
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('feature-comment')) {
+                localStorage.setItem(e.target.closest('[id]').id + '-comment-text', e.target.value);
+            }
+        });
+        
+        // Sayfa yüklendiğinde durumları geri yükle
+        window.addEventListener('load', function() {
+            // Checkbox durumlarını yükle
+            document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox, index) {
+                const saved = localStorage.getItem(checkbox.id || 'checkbox-' + index);
+                if (saved !== null) {
+                    checkbox.checked = saved === 'true';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

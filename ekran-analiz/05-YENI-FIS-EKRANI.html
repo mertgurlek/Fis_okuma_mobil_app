@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Fiş Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 400px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; display: flex; flex-direction: column; align-items: center; border-right: 3px solid #e9ecef; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+        .screenshot-label { margin-top: 15px; font-size: 0.9em; color: #6c757d; text-align: center; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>➕ YENİ FİŞ EKRANI</h1>
+            <p>Fiş Ekleme Seçenekleri</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <img src="../screenshots/Yeni fiş Ekranı.PNG" alt="Yeni Fiş Ekranı">
+                <div class="screenshot-label">
+                    <strong>Ekran:</strong> Yeni Fiş<br>
+                    <strong>Dosya:</strong> app/(tabs)/new-receipt.tsx
+                </div>
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Yeni Fiş ekranı, kullanıcının kasa fişi veya Z raporu eklemek için farklı yöntemleri seçebildiği ekrandır. 
+                        Hem kamera ile anlık çekim hem de galeriden mevcut fotoğraf seçme seçenekleri sunulur.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🧾 Kasa Fişi Bölümü</h2>
+                    <div class="component">
+                        <div class="component-title">📋 Kasa Fişi Başlık</div>
+                        <ul>
+                            <li><strong>Görünüm:</strong> Mavi arka planlı geniş başlık butonu</li>
+                            <li><strong>Metin:</strong> "Kasa Fişi"</li>
+                            <li><strong>Renk:</strong> Mavi (#667eea benzeri)</li>
+                            <li><strong>Stil:</strong> Yuvarlatılmış köşeler, full-width</li>
+                            <li><strong>Amaç:</strong> Kasa fişi kategorisini belirtir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📷 Kamera ile Çek</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Siyah kamera ikonu</li>
+                            <li><strong>Metin:</strong> "Kamera ile Çek"</li>
+                            <li><strong>Konum:</strong> Sol kısım</li>
+                            <li><strong>Fonksiyon:</strong> Cihaz kamerasını açar</li>
+                            <li><strong>İşlem:</strong> Fiş fotoğrafı çekilir, OCR işlemi başlar</li>
+                            <li><strong>Görünüm:</strong> Beyaz kart üzerine siyah ikon ve metin</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🖼️ Galeriden Seç</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Renkli resim galeri ikonu</li>
+                            <li><strong>Metin:</strong> "Galeriden Seç"</li>
+                            <li><strong>Konum:</strong> Sağ kısım</li>
+                            <li><strong>Fonksiyon:</strong> Cihaz galerisini açar</li>
+                            <li><strong>İşlem:</strong> Mevcut fotoğraf seçilir, OCR işlemi başlar</li>
+                            <li><strong>Görünüm:</strong> Beyaz kart üzerine yeşil-turuncu ikon</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Z Raporu Bölümü</h2>
+                    <div class="component">
+                        <div class="component-title">📈 Z Raporu Başlık</div>
+                        <ul>
+                            <li><strong>Görünüm:</strong> Sarı arka planlı geniş başlık butonu</li>
+                            <li><strong>Metin:</strong> "Z Raporu"</li>
+                            <li><strong>Renk:</strong> Sarı (#FFC107 benzeri)</li>
+                            <li><strong>Stil:</strong> Yuvarlatılmış köşeler, full-width</li>
+                            <li><strong>Amaç:</strong> Z raporu kategorisini belirtir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📷 Kamera ile Çek (Z Raporu)</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Siyah kamera ikonu</li>
+                            <li><strong>Metin:</strong> "Kamera ile Çek"</li>
+                            <li><strong>Konum:</strong> Sol kısım</li>
+                            <li><strong>Fonksiyon:</strong> Z raporu için optimize edilmiş kamera açılır</li>
+                            <li><strong>Özellik:</strong> Z raporu formatına göre OCR optimizasyonu</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🖼️ Galeriden Seç (Z Raporu)</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Renkli resim galeri ikonu</li>
+                            <li><strong>Metin:</strong> "Galeriden Seç"</li>
+                            <li><strong>Konum:</strong> Sağ kısım</li>
+                            <li><strong>Fonksiyon:</strong> Galeriden Z raporu fotoğrafı seçimi</li>
+                            <li><strong>İşlem:</strong> Z raporu formatında OCR analizi</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">ℹ️ Bilgilendirme Kutusu</h2>
+                    <div class="component">
+                        <div class="component-title">💡 İpucu Mesajı</div>
+                        <ul>
+                            <li><strong>İkon:</strong> Bilgi (i) ikonu - mavi</li>
+                            <li><strong>Metin:</strong> "En iyi sonuç için fişin tamamının net bir şekilde göründüğünden emin olun."</li>
+                            <li><strong>Görünüm:</strong> Açık mavi arka plan, yuvarlatılmış köşeler</li>
+                            <li><strong>Amaç:</strong> Kullanıcıya kaliteli fotoğraf çekme tavsiyeleri</li>
+                            <li><strong>Konum:</strong> Z Raporu seçeneklerinin altında</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler ve Akışlar</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Kasa Fişi - Kamera Akışı</div>
+                        <ul>
+                            <li>Kullanıcı "Kamera ile Çek" (Kasa Fişi) butonuna tıklar</li>
+                            <li>Cihaz kamera izni kontrol edilir</li>
+                            <li>İzin varsa kamera açılır, yoksa izin istenir</li>
+                            <li>Kullanıcı fiş fotoğrafını çeker</li>
+                            <li>Önizleme ekranı gösterilir (tekrar çek / onayla seçenekleri)</li>
+                            <li>Onaylandığında OCR işlemi başlar</li>
+                            <li>Loading ekranı gösterilir</li>
+                            <li>OCR sonuçları ile fiş düzenleme sayfası açılır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kasa Fişi - Galeri Akışı</div>
+                        <ul>
+                            <li>Kullanıcı "Galeriden Seç" (Kasa Fişi) butonuna tıklar</li>
+                            <li>Cihaz galeri erişim izni kontrol edilir</li>
+                            <li>Galeri açılır</li>
+                            <li>Kullanıcı fiş fotoğrafını seçer</li>
+                            <li>Seçilen görsel işlenir</li>
+                            <li>OCR işlemi başlar</li>
+                            <li>Sonuçlar düzenleme sayfasında gösterilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Z Raporu Akışı</div>
+                        <ul>
+                            <li>Z Raporu bölümündeki butonlar aynı şekilde çalışır</li>
+                            <li>Fark: OCR motoru Z raporu formatına özel çalışır</li>
+                            <li>Satış toplamları, vergi bilgileri özel olarak tanınır</li>
+                            <li>Z raporu formatına göre veri çıkarımı yapılır</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">İki Ayrı Kategori</div>
+                        <ul>
+                            <li><strong>Kasa Fişi:</strong> Normal yazar kasa fişleri için</li>
+                            <li><strong>Z Raporu:</strong> Günlük satış raporları için</li>
+                            <li>Her kategori farklı renk ile ayırt edilir (mavi/sarı)</li>
+                            <li>OCR algorması kategoriye göre optimize edilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Görsel İpuçları</div>
+                        <ul>
+                            <li>Bilgi kutusu kullanıcıyı yönlendirir</li>
+                            <li>"Net görüntü" vurgusu yapılır</li>
+                            <li>"Fişin tamamı" vurgusu yapılır</li>
+                            <li>Kaliteli fotoğraf için öneriler</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kamera İyileştirmeleri</div>
+                        <ul>
+                            <li><strong>Otomatik Odaklama:</strong> Fiş üzerine otomatik odaklanma</li>
+                            <li><strong>Flash Kontrolü:</strong> Düşük ışıkta otomatik flash</li>
+                            <li><strong>Kare Kılavuzu:</strong> Fişin düzgün çerçevelenmesi için rehber</li>
+                            <li><strong>Döndürme:</strong> Yanlış açıda çekilen fişleri otomatik düzeltme</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Hata Durumları</div>
+                        <ul>
+                            <li><strong>İzin Reddedilirse:</strong> "Kamera/Galeri iznine ihtiyaç var" mesajı ve ayarlar linki</li>
+                            <li><strong>Bulanık Fotoğraf:</strong> "Fotoğraf çok bulanık, tekrar deneyin" uyarısı</li>
+                            <li><strong>OCR Başarısız:</strong> Manuel veri girişi seçeneği sunulur</li>
+                            <li><strong>Kredi Yetersiz:</strong> "Krediniz yetersiz" uyarısı ve satın alma linki</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🎨 Tasarım Detayları</h2>
+                    <div class="component">
+                        <ul>
+                            <li><strong>Kategori Başlıkları:</strong> Full-width, bold, renkli arka plan</li>
+                            <li><strong>Seçenek Kartları:</strong> 2 sütun grid layout, eşit genişlik</li>
+                            <li><strong>İkonlar:</strong> 48x48px, merkezli</li>
+                            <li><strong>Metin:</strong> İkon altında, orta hizalı, 14-16px</li>
+                            <li><strong>Boşluklar:</strong> Kartlar arası 15px, bölümler arası 25px</li>
+                            <li><strong>Bilgi Kutusu:</strong> Açık mavi arka plan, mavi border</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>💡 Kullanım Senaryosu:</strong> Bu ekran, kullanıcının fiş ekleme yöntemini seçmesini sağlar. 
+                    Hem anlık çekim hem de önceden çekilmiş fotoğrafları işleme imkanı verir. Z Raporu ve Kasa Fişi ayrımı, 
+                    OCR algoritmasının daha doğru çalışmasını sağlar.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function toggleComment(featureId) { const commentDiv = document.getElementById(featureId + '-comment'); commentDiv.style.display = commentDiv.style.display === 'none' ? 'block' : 'none'; }</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firmalar Ekranı Analizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 5px; }
+        .content { display: grid; grid-template-columns: 450px 1fr; gap: 0; min-height: 600px; }
+        .screenshot-panel { background: #f8f9fa; padding: 30px; border-right: 3px solid #e9ecef; overflow-y: auto; }
+        .screenshot-panel img { max-width: 100%; border-radius: 10px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); margin-bottom: 25px; }
+        .screenshot-label { margin-bottom: 20px; font-size: 0.9em; color: #6c757d; text-align: center; padding: 10px; background: white; border-radius: 8px; }
+        .analysis-panel { padding: 40px; overflow-y: auto; }
+        .section { margin-bottom: 35px; }
+        .section-title { color: #667eea; font-size: 1.5em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        .component { background: #f8f9fa; border-left: 4px solid #764ba2; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .component-title { color: #764ba2; font-size: 1.2em; font-weight: bold; margin-bottom: 12px; }
+        ul { padding-left: 20px; line-height: 1.8; color: #495057; }
+        .highlight-box { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .back-button { position: fixed; top: 20px; left: 20px; background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000; }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="history.back()">← Geri</button>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 FIRMALAR EKRANI</h1>
+            <p>Firma Yönetimi ve İstatistikler</p>
+        </div>
+        
+        <div class="content">
+            <div class="screenshot-panel">
+                <div class="screenshot-label"><strong>Ana Liste</strong><br>Firmalar ve istatistikler</div>
+                <img src="../screenshots/Firmalar Ekranı.PNG" alt="Firmalar">
+                <div class="screenshot-label"><strong>Firma Seçimi</strong><br>Popup modal</div>
+                <img src="../screenshots/firma seçim pop up.PNG" alt="Firma Seçim">
+                <div class="screenshot-label"><strong>Firma Düzenleme</strong><br>Form ekranı</div>
+                <img src="../screenshots/Firma düzenle 1.PNG" alt="Firma Düzenle">
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section">
+                    <h2 class="section-title">📱 Genel Bilgi</h2>
+                    <p style="line-height: 1.8; color: #495057;">
+                        Firmalar ekranı, kullanıcının kayıtlı firmalarını yönettiği bölümdür. Her firma için detaylı 
+                        istatistikler, fiş sayıları ve kalan kontör bilgileri gösterilir. Kullanıcı firmaları 
+                        düzenleyebilir, aktif/pasif yapabilir ve kullanıcılarını yönetebilir.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">📊 Üst İstatistik Paneli</h2>
+                    <div class="component">
+                        <div class="component-title">Genel Özet Kartları</div>
+                        <ul>
+                            <li><strong>Toplam Firma:</strong> 2 - Kayıtlı firma sayısı</li>
+                            <li><strong>Toplam Fiş:</strong> 30 - Tüm firmalardaki toplam fiş</li>
+                            <li><strong>Toplam KDV:</strong> ₺16.9K - Tüm firmalardaki toplam KDV</li>
+                            <li><strong>Kalan Kontör:</strong> 225 - Toplam kullanılabilir kontör</li>
+                            <li><strong>Görünüm:</strong> Mavi arka plan, beyaz metin, 4 sütun</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🏢 Firma Kartları</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Firma Kartı Üst Bölüm</div>
+                        <ul>
+                            <li><strong>Logo/Avatar:</strong> Sol üstte firma baş harfleri (örn: "AB", "XY")</li>
+                            <li><strong>Firma Adı:</strong> "ABC Ltd." (büyük, bold)</li>
+                            <li><strong>VKN:</strong> "VKN: 1234567890" (gri, küçük font)</li>
+                            <li><strong>Tam Ünvan:</strong> "ABC Bilişim Teknolojileri Limited Şirketi" (gri, küçük)</li>
+                            <li><strong>Aktif Badge:</strong> Sağ üstte "✓ Aktif" yeşil etiketi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">İstatistik Satırı</div>
+                        <ul>
+                            <li><strong>Toplam Fiş:</strong> 27 (mavi renk, büyük sayı)</li>
+                            <li><strong>Onaylı:</strong> 8 (yeşil renk)</li>
+                            <li><strong>Bekleyen:</strong> 15 (turuncu renk)</li>
+                            <li><strong>Layout:</strong> 3 sütun, merkezi hizalı</li>
+                            <li><strong>Alt Etiket:</strong> Her sayının altında açıklama metni</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Mali Bilgiler</div>
+                        <ul>
+                            <li><strong>Toplam KDV:</strong> ₺12,361.12 (turuncu/kırmızı renk)</li>
+                            <li><strong>Toplam Tutar:</strong> ₺82,550.40 (mavi renk)</li>
+                            <li><strong>Görünüm:</strong> Sağa hizalı, büyük font</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kalan Kontör</div>
+                        <ul>
+                            <li><strong>Metin:</strong> "Kalan Kontör"</li>
+                            <li><strong>Değer:</strong> 150 (sağ tarafta)</li>
+                            <li><strong>Progress Bar:</strong> Yeşil ilerleme çubuğu</li>
+                            <li><strong>Görselleştirme:</strong> Kontör kullanım oranı</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Aksiyon Butonları</div>
+                        <ul>
+                            <li><strong>Seç:</strong> "✓ Seç" (mavi metin) - Firmayı aktif seçim yapar</li>
+                            <li><strong>Düzenle:</strong> "✏️ Düzenle" (mavi metin) - Firma bilgilerini düzenler</li>
+                            <li><strong>Kullanıcılar:</strong> "👥 Kullanıcılar" (yeşil metin) - Firma kullanıcılarını yönetir</li>
+                            <li><strong>Layout:</strong> Alt kısımda 3 buton yan yana</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">➕ Yeni Firma Ekleme</h2>
+                    <div class="component">
+                        <div class="component-title">FAB (Floating Action Button)</div>
+                        <ul>
+                            <li><strong>Konum:</strong> Sağ alt köşe, sabit pozisyon</li>
+                            <li><strong>İkon:</strong> + (artı) işareti</li>
+                            <li><strong>Renk:</strong> Mavi, yuvarlak</li>
+                            <li><strong>Fonksiyon:</strong> Yeni firma ekleme formunu açar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔍 Firma Seçim Popup'ı</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Modal Yapısı</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "Firma Seçin"</li>
+                            <li><strong>Kapat Butonu:</strong> X ikonu sağ üstte</li>
+                            <li><strong>Arama:</strong> "Firma adı veya VKN ile ara" input</li>
+                            <li><strong>Arka Plan:</strong> Saydam koyu overlay</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Son Kullanılanlar Bölümü</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "SON KULLANILANLAR"</li>
+                            <li><strong>Liste:</strong> En son kullanılan firmalar</li>
+                            <li><strong>İkon:</strong> Seçili firma ✓ işareti ile gösterilir</li>
+                            <li><strong>Bilgiler:</strong> Firma adı, tam ünvan, VKN</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Tüm Firmalar Bölümü</div>
+                        <ul>
+                            <li><strong>Başlık:</strong> "TÜM FİRMALAR"</li>
+                            <li><strong>Liste:</strong> Alfabetik sıralı tüm firmalar</li>
+                            <li><strong>Seçim:</strong> Firmaya tıklandığında seçilir ve popup kapanır</li>
+                            <li><strong>Scroll:</strong> Liste uzunsa kaydırılabilir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">✏️ Firma Düzenleme Formu</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">📋 Temel Bilgiler</div>
+                        <ul>
+                            <li><strong>Firma Ünvanı*:</strong> Tam resmi firma adı</li>
+                            <li><strong>Kısa İsim*:</strong> Kullanıcı dostu kısa ad</li>
+                            <li><strong>VKN*:</strong> 10 haneli vergi kimlik no</li>
+                            <li><strong>TCKN (Şahış Firma):</strong> 11 haneli TC kimlik no</li>
+                            <li><strong>Vergi Dairesi*:</strong> Firma vergi dairesi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">🏷️ Firma Türü</div>
+                        <ul>
+                            <li><strong>Şahış Firması:</strong> Tek kişilik firma</li>
+                            <li><strong>Limited Şirket:</strong> Ltd. Şti.</li>
+                            <li><strong>Anonim Şirket:</strong> A.Ş.</li>
+                            <li><strong>Kolektif Şirket:</strong> Ortaklık</li>
+                            <li><strong>Komandit Şirket:</strong> Komandit ortaklık</li>
+                            <li><strong>Kooperatif:</strong> Kooperatif</li>
+                            <li><strong>Diğer:</strong> Diğer türler</li>
+                            <li><strong>Görünüm:</strong> Chip seçim butonları</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">📞 İletişim Bilgileri</div>
+                        <ul>
+                            <li><strong>Adres:</strong> Firma adresi (çok satırlı)</li>
+                            <li><strong>Şehir:</strong> İl seçimi</li>
+                            <li><strong>Telefon:</strong> İletişim telefonu</li>
+                            <li><strong>E-posta:</strong> Firma e-posta adresi</li>
+                            <li><strong>Web Sitesi:</strong> Firma web adresi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">💼 Muhasebe Bilgileri</div>
+                        <ul>
+                            <li><strong>Muhasebeci Adı:</strong> İlgili muhasebeci</li>
+                            <li><strong>Muhasebe Telefon:</strong> Muhasebe iletişim</li>
+                            <li><strong>Dönem Başlangıcı:</strong> Mali dönem başı</li>
+                            <li><strong>Dönem Sonu:</strong> Mali dönem sonu</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Alt Butonlar</div>
+                        <ul>
+                            <li><strong>İptal:</strong> Değişiklikleri iptal et</li>
+                            <li><strong>Sil:</strong> Firmayı kalıcı olarak sil (kırmızı)</li>
+                            <li><strong>Kaydet:</strong> Değişiklikleri kaydet (mavi)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🔄 Etkileşimler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Firma Seçme</div>
+                        <ul>
+                            <li>"Seç" butonuna tıklanır</li>
+                            <li>Seçilen firma aktif olur</li>
+                            <li>Tüm fiş işlemleri bu firma için yapılır</li>
+                            <li>Üst bardaki firma bilgisi güncellenir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Firma Düzenleme</div>
+                        <ul>
+                            <li>"Düzenle" butonuna tıklanır</li>
+                            <li>Firma düzenleme formu açılır</li>
+                            <li>Mevcut bilgiler form alanlarına doldurulur</li>
+                            <li>Kullanıcı değişiklikleri yapar</li>
+                            <li>"Kaydet" ile güncellemeler saklanır</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kullanıcı Yönetimi</div>
+                        <ul>
+                            <li>"Kullanıcılar" butonuna tıklanır</li>
+                            <li>Firmaya bağlı kullanıcılar listelenir</li>
+                            <li>Yeni kullanıcı eklenebilir</li>
+                            <li>Kullanıcı yetkileri düzenlenebilir</li>
+                            <li>Kullanıcı silinebilir</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Yeni Firma Ekleme</div>
+                        <ul>
+                            <li>Sağ alttaki + FAB butonuna tıklanır</li>
+                            <li>Boş firma ekleme formu açılır</li>
+                            <li>Zorunlu alanlar doldurulur</li>
+                            <li>"Kaydet" ile yeni firma oluşturulur</li>
+                            <li>Firma listeye eklenir</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💎 Özel Özellikler</h2>
+                    
+                    <div class="component">
+                        <div class="component-title">Çoklu Firma Desteği</div>
+                        <ul>
+                            <li>Kullanıcı birden fazla firmaya kayıtlı olabilir</li>
+                            <li>Her firma için ayrı fiş ve istatistikler</li>
+                            <li>Firmalar arası hızlı geçiş</li>
+                            <li>Her firmanın kendi kontör bakiyesi</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Kontör Sistemi</div>
+                        <ul>
+                            <li>Her firma için ayrı kontör havuzu</li>
+                            <li>OCR işlemleri kontörden düşer</li>
+                            <li>Progress bar ile görsel gösterim</li>
+                            <li>Kontör bitince uyarı ve satın alma linki</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <div class="component-title">Aktif/Pasif Durum</div>
+                        <ul>
+                            <li>Firmalar aktif veya pasif yapılabilir</li>
+                            <li>Pasif firmalar listede gri gösterilir</li>
+                            <li>Pasif firmalar için işlem yapılamaz</li>
+                            <li>Aktif firma "✓ Aktif" badge'i alır</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="highlight-box">
+                    <strong>💡 Kullanım Senaryosu:</strong> Muhasebeci veya müşavir birden fazla firma yönetir. 
+                    Her firmanın fişlerini ayrı ayrı takip eder. Firma arası geçiş yaparak ilgili firmanın 
+                    fişlerini görüntüler ve işlemlerini gerçekleştirir.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>function toggleComment(featureId) { const commentDiv = document.getElementById(featureId + '-comment'); commentDiv.style.display = commentDiv.style.display === 'none' ? 'block' : 'none'; }</script>
+</body>
+</html>
